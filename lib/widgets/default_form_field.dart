@@ -4,15 +4,16 @@ import 'package:petology/themes/colors.dart';
 class DefaultFormField extends StatelessWidget {
   final double? width;
   final String? hint;
+  final bool? isPassword;
   final TextEditingController? controller;
 
-  const DefaultFormField({
-    Key? key,
+  DefaultFormField({
+    super.key,
+    this.controller,
     this.width,
     this.hint,
-    this.controller,
-
-  }) : super(key: key);
+    this.isPassword,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,9 @@ class DefaultFormField extends StatelessWidget {
       child: Material(
         elevation: 5,
         shadowColor: AppColors.lightBrown,
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         child: TextFormField(
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -32,8 +34,9 @@ class DefaultFormField extends StatelessWidget {
             hintText: hint ?? 'hint',
             hintStyle: const TextStyle(
               color: AppColors.medBrown,
-            )
+            ),
           ),
+          obscureText: isPassword == true ? true : false,
         ),
       ),
     );
