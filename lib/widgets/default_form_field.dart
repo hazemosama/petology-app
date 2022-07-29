@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:petology/themes/colors.dart';
 
 class DefaultFormField extends StatelessWidget {
-  double? width;
-   String? hint;
-  bool? isPassword;
-  TextEditingController? controller;
-  TextInputType keyboardType;
-  ValueChanged<String>? onSubmit;
-  ValueChanged<String>? onChange;
-  VoidCallback? onTap;
-  FormFieldValidator<String>? validate;
-  String? label;
-  IconData? prefix;
-  IconData? suffix;
-  VoidCallback? suffixPressed;
-  bool isClickable = true;
 
-   DefaultFormField({
+  final double? width;
+  final String? hint;
+  final bool? isPassword;
+  final TextEditingController? controller;
+  final TextInputType keyboardType;
+  final ValueChanged<String>? onSubmit;
+  final ValueChanged<String>? onChange;
+  final VoidCallback? onTap;
+  final FormFieldValidator<String>? validate;
+  final String? label;
+  final IconData? prefix;
+  final IconData? suffix;
+  final VoidCallback? suffixPressed;
+  final bool isClickable = true;
+
+  const DefaultFormField({
+
     super.key,
     this.controller,
     this.width,
@@ -32,8 +34,7 @@ class DefaultFormField extends StatelessWidget {
     this.suffix,
     this.suffixPressed,
     bool isClickable = true,
-    this.isPassword
-
+    this.isPassword,
   });
 
   @override
@@ -49,7 +50,7 @@ class DefaultFormField extends StatelessWidget {
         child: TextFormField(
           controller: controller,
           keyboardType: keyboardType,
-          obscureText: isPassword??false,
+          obscureText: isPassword ?? false,
           enabled: isClickable,
           onFieldSubmitted: onSubmit,
           onChanged: onChange,
@@ -63,17 +64,18 @@ class DefaultFormField extends StatelessWidget {
             labelText: label,
             suffixIcon: suffix != null
                 ? IconButton(
-              onPressed: suffixPressed,
-              icon: Icon(
-                suffix,
-              ),
-            )
+                    onPressed: suffixPressed,
+                    icon: Icon(
+                      suffix,
+                    ),
+                  )
                 : null,
             hintText: hint ?? 'hint',
             hintStyle: const TextStyle(
               color: AppColors.medBrown,
             ),
-          ),),
+          ),
+        ),
       ),
     );
   }
