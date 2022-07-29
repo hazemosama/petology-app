@@ -5,7 +5,10 @@ import 'package:petology/widgets/default_form_field.dart';
 import '../themes/colors.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  var formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +42,10 @@ class LoginScreen extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      child: Form(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Form(
+                          key: formKey,
                           child: Column(
                             children: [
                               const SizedBox(
@@ -58,14 +62,33 @@ class LoginScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 30.0,
                               ),
-                              const DefaultFormField(
+                              DefaultFormField(
                                 hint: 'Email',
+                                controller: emailController,
+                                keyboardType:
+                                TextInputType.emailAddress,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'email must not be empty';
+                                  }
+                                  return null;
+                                },
                               ),
+
                               const SizedBox(
                                 height: 20.0,
                               ),
-                              const DefaultFormField(
+                              DefaultFormField(
                                 hint: 'Password',
+                                controller: passwordController,
+                                keyboardType:
+                                TextInputType.visiblePassword,
+                                validate: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return 'password must not be empty';
+                                  }
+                                  return null;
+                                },
                                 isPassword: true,
                               ),
                               const SizedBox(
@@ -224,7 +247,9 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+
+                                      },
                                       child: const Text('sign up',
                                           style: TextStyle(
                                               color: AppColors.darkBrown,

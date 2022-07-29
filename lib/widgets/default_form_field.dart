@@ -2,17 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:petology/themes/colors.dart';
 
 class DefaultFormField extends StatelessWidget {
-  final double? width;
-  final String? hint;
-  final bool? isPassword;
-  final TextEditingController? controller;
+  double? width;
+   String? hint;
+  bool? isPassword;
+  TextEditingController? controller;
+  TextInputType keyboardType;
+  ValueChanged<String>? onSubmit;
+  ValueChanged<String>? onChange;
+  VoidCallback? onTap;
+  FormFieldValidator<String>? validate;
+  String? label;
+  IconData? prefix;
+  IconData? suffix;
+  VoidCallback? suffixPressed;
+  bool isClickable = true;
 
-  const DefaultFormField({
+   DefaultFormField({
     super.key,
     this.controller,
     this.width,
     this.hint,
-    this.isPassword,
+    required this.keyboardType,
+    this.onSubmit,
+    this.onChange,
+    this.onTap,
+    this.validate,
+    this.label,
+    this.prefix,
+    this.suffix,
+    this.suffixPressed,
+    bool isClickable = true,
+    this.isPassword
+
   });
 
   @override
@@ -26,18 +47,33 @@ class DefaultFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: TextFormField(
+          controller: controller,
+          keyboardType: keyboardType,
+          obscureText: isPassword??false,
+          enabled: isClickable,
+          onFieldSubmitted: onSubmit,
+          onChanged: onChange,
+          onTap: onTap,
+          validator: validate,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(50.0),
             ),
+            labelText: label,
+            suffixIcon: suffix != null
+                ? IconButton(
+              onPressed: suffixPressed,
+              icon: Icon(
+                suffix,
+              ),
+            )
+                : null,
             hintText: hint ?? 'hint',
             hintStyle: const TextStyle(
               color: AppColors.medBrown,
             ),
-          ),
-          obscureText: isPassword == true ? true : false,
-        ),
+          ),),
       ),
     );
   }
