@@ -58,13 +58,13 @@ class LoginScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 30.0,
                               ),
-                              DefaultFormField(
+                              const DefaultFormField(
                                 hint: 'Email',
                               ),
                               const SizedBox(
                                 height: 20.0,
                               ),
-                              DefaultFormField(
+                              const DefaultFormField(
                                 hint: 'Password',
                                 isPassword: true,
                               ),
@@ -150,7 +150,8 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                       height: 50,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
                                             'assets/icons/fb.png',
@@ -173,7 +174,7 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20.0,
                                   ),
                                   Expanded(
@@ -186,7 +187,8 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                       height: 50,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
                                             'assets/icons/google.png',

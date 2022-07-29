@@ -7,7 +7,7 @@ class DefaultFormField extends StatelessWidget {
   final bool? isPassword;
   final TextEditingController? controller;
 
-  DefaultFormField({
+  const DefaultFormField({
     super.key,
     this.controller,
     this.width,

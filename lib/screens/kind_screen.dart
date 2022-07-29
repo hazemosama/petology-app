@@ -20,7 +20,7 @@ class KindScreenState extends State<KindScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100.0,
             ),
             Stack(
@@ -31,7 +31,7 @@ class KindScreenState extends State<KindScreen> {
                   height: 60.0,
                   width: 60.0,
                 ),
-                Text(
+                const Text(
                   'Let\'s get this right...',
                   style: TextStyle(
                     color: AppColors.darkBrown,
@@ -56,7 +56,7 @@ class KindScreenState extends State<KindScreen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 70.0,
             ),
             Padding(
@@ -71,7 +71,7 @@ class KindScreenState extends State<KindScreen> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 12.0,
                         ),
                         decoration: BoxDecoration(
@@ -120,7 +120,7 @@ class KindScreenState extends State<KindScreen> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 12.0,
                         ),
                         decoration: BoxDecoration(
