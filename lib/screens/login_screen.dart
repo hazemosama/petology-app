@@ -115,8 +115,7 @@ class LoginScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.30,
+                                    width: 50.0,
                                     height: 1.0,
                                     color: AppColors.darkBrown,
                                   ),
@@ -129,8 +128,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.30,
+                                    width: 90.0,
                                     height: 1.0,
                                     color: AppColors.darkBrown,
                                   ),
@@ -150,8 +148,7 @@ class LoginScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                     minWidth:
-                                        MediaQuery.of(context).size.width *
-                                            0.35,
+                                        100,
                                     height: 50,
                                     child: Row(
                                       children: [

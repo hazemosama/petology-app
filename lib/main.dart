@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/login_screen.dart';
 import 'package:petology/themes/colors.dart';
 
