@@ -10,13 +10,13 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightBrown,
+      // backgroundColor: AppColors.lightBrown,
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 22.0,
+              top: 20.0,
             ),
             child: Stack(
               alignment: AlignmentDirectional.topCenter,
@@ -30,8 +30,8 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 173),
                   child: Center(
                     child: Container(
-                      height: 500,
-                      width: 320,
+                      height: 560,
+                      width: 355,
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.black,
@@ -115,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    width: 50.0,
+                                    width: 110.0,
                                     height: 1.0,
                                     color: AppColors.darkBrown,
                                   ),
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    width: 90.0,
+                                    width: 110.0,
                                     height: 1.0,
                                     color: AppColors.darkBrown,
                                   ),
@@ -141,69 +141,95 @@ class LoginScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  MaterialButton(
-                                    onPressed: () {},
-                                    color: const Color(0xFF2F4582),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    minWidth:
-                                        100,
-                                    height: 50,
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/icons/fb.png',
-                                          width: 24,
-                                          height: 24,
-                                        ),
-                                        const SizedBox(
-                                          width: 7.0,
-                                        ),
-                                        Text(
-                                          'Facebook',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1!
-                                              .copyWith(
-                                                color: Colors.white,
-                                              ),
-                                        ),
-                                      ],
+                                  Expanded(
+                                    child: MaterialButton(
+                                      onPressed: () {},
+                                      color: const Color(0xFF2F4582),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                      height: 50,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/icons/fb.png',
+                                            width: 24,
+                                            height: 24,
+                                          ),
+                                          const SizedBox(
+                                            width: 7.0,
+                                          ),
+                                          Text(
+                                            'Facebook',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1!
+                                                .copyWith(
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  MaterialButton(
-                                    onPressed: () {},
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    minWidth:
-                                        MediaQuery.of(context).size.width *
-                                            0.35,
-                                    height: 50,
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          'assets/icons/google.png',
-                                          width: 24,
-                                          height: 24,
-                                        ),
-                                        const SizedBox(
-                                          width: 7.0,
-                                        ),
-                                        Text(
-                                          'Google',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1,
-                                        ),
-                                      ],
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Expanded(
+                                    child: MaterialButton(
+                                      onPressed: () {},
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                      height: 50,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/icons/google.png',
+                                            width: 24,
+                                            height: 24,
+                                          ),
+                                          const SizedBox(
+                                            width: 7.0,
+                                          ),
+                                          Text(
+                                            'Google',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Didn\'t have an account?',
+                                    style: TextStyle(
+                                      color: AppColors.darkBrown,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {},
+                                      child: const Text('sign up',
+                                          style: TextStyle(
+                                              color: AppColors.darkBrown,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold)))
+                                ],
+                              )
                             ],
                           ),
                         ),
