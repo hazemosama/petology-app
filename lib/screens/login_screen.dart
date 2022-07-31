@@ -5,10 +5,13 @@ import 'package:petology/widgets/default_form_field.dart';
 import '../themes/colors.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = '/login-screen';
+
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +68,7 @@ class LoginScreen extends StatelessWidget {
                               DefaultFormField(
                                 hint: 'Email',
                                 controller: emailController,
-                                keyboardType:
-                                TextInputType.emailAddress,
+                                keyboardType: TextInputType.emailAddress,
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
                                     return 'email must not be empty';
@@ -74,15 +76,13 @@ class LoginScreen extends StatelessWidget {
                                   return null;
                                 },
                               ),
-
                               const SizedBox(
                                 height: 20.0,
                               ),
                               DefaultFormField(
                                 hint: 'Password',
                                 controller: passwordController,
-                                keyboardType:
-                                TextInputType.visiblePassword,
+                                keyboardType: TextInputType.visiblePassword,
                                 validate: (String? value) {
                                   if (value!.isEmpty) {
                                     return 'password must not be empty';
@@ -248,14 +248,18 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   TextButton(
-                                      onPressed: () {
-
-                                      },
-                                      child: const Text('sign up',
-                                          style: TextStyle(
-                                              color: AppColors.darkBrown,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold)))
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, '/sign-up-screen');
+                                    },
+                                    child: const Text(
+                                      'sign up',
+                                      style: TextStyle(
+                                        color: AppColors.darkBrown,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               )
                             ],

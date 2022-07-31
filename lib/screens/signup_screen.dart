@@ -4,6 +4,9 @@ import 'package:petology/themes/colors.dart';
 import 'package:petology/widgets/default_form_field.dart';
 
 class SignupScreen extends StatelessWidget {
+
+  static const routeName = '/sign-up-screen';
+
   var formKey = GlobalKey<FormState>();
   var firstNController = TextEditingController();
   var lastNController = TextEditingController();
@@ -11,6 +14,10 @@ class SignupScreen extends StatelessWidget {
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
   var countryController = TextEditingController();
+
+  SignupScreen({Key? key}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +31,10 @@ class SignupScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             Positioned(
-              top: 30,
+              top: 25,
               left: 20,
+              right: 20,
+
               child: Container(
                 height: 750,
                 width: 400,
@@ -252,7 +261,7 @@ class SignupScreen extends StatelessWidget {
                             minWidth: 300.0,
                             height: 60,
                             child: const Text(
-                              'Login',
+                              'Sign up',
                               style: TextStyle(
                                 color: AppColors.lightBrown,
                                 fontSize: 18.0,
@@ -274,12 +283,16 @@ class SignupScreen extends StatelessWidget {
                                 ),
                               ),
                               TextButton(
-                                  onPressed: () {},
-                                  child: const Text('Login',
-                                      style: TextStyle(
-                                          color: AppColors.darkBrown,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)))
+                                onPressed: () {},
+                                child: const Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: AppColors.darkBrown,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         ],

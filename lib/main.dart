@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:petology/screens/help_screen.dart';
+import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/login_screen.dart';
+import 'package:petology/screens/signup_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -50,7 +53,13 @@ class MyApp extends StatelessWidget {
           color: Color(0xFFF5F5F5),
         ),
       ),
-      home: LoginScreen(),
+      routes: {
+        '/Help-screen': (context) => HelpScreen(),
+        '/kind-screen': (context) =>  KindScreen(),
+        '/login-screen': (context) => LoginScreen(),
+        '/sign-up-screen': (context) => SignupScreen(),
+      },
+      initialRoute: '/Help-screen',
     );
   }
 

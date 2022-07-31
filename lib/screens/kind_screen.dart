@@ -3,6 +3,7 @@ import 'package:petology/themes/colors.dart';
 
 class KindScreen extends StatefulWidget {
   const KindScreen({Key? key}) : super(key: key);
+  static const routeName = '/kind-screen';
 
   @override
   KindScreenState createState() => KindScreenState();
