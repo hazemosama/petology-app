@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
           const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
-      ),
+      ),//
       routes: {
         HelpScreen.routeName: (context) => HelpScreen(),
         KindScreen.routeName: (context) => const KindScreen(),
