@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petology/network/remote/block_observer.dart';
+import 'package:petology/network/local/cache_helper.dart';
+import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/login_screen.dart';
@@ -7,8 +11,12 @@ import 'package:petology/screens/signup_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.init();
+
+  await CacheHelper.init();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -16,7 +24,14 @@ void main() {
     ),
   );
 
-  runApp(const MyApp());
+  BlocOverrides.runZoned(
+        () {
+      runApp(
+        const MyApp(),
+      );
+    },
+    blocObserver: MyBlocObserver(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -42,27 +57,27 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => ResponsiveWrapper.builder(
         child,
         maxWidth: 1200,
-        minWidth: 480,
+        minWidth: 450,
         defaultScale: true,
         breakpoints: [
-          ResponsiveBreakpoint.resize(390, name: MOBILE),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          const ResponsiveBreakpoint.resize(390, name: MOBILE),
+          const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+          const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+          const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
         ],
-        background: Container(
-          color: Color(0xFFF5F5F5),
-        ),
       ),
       routes: {
-        '/Help-screen': (context) => HelpScreen(),
-        '/kind-screen': (context) =>  KindScreen(),
-        '/login-screen': (context) => LoginScreen(),
-        '/sign-up-screen': (context) => SignupScreen(),
+        HelpScreen.routeName: (context) => HelpScreen(),
+        KindScreen.routeName: (context) => const KindScreen(),
+        LoginScreen.routeName: (context) => LoginScreen(),
+        SignupScreen.routeName: (context) => SignupScreen(),
       },
-      initialRoute: '/Help-screen',
+      initialRoute: '/login-screen',
     );
   }
 
+//
   MaterialColor buildMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};
