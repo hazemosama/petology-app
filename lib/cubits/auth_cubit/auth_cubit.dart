@@ -20,8 +20,8 @@ class AuthCubit extends Cubit<AuthStates> {
       fbToken = value.accessToken!.token;
       emit(SocialLoginLoadingState());
       facebookAuth(fbToken!);
+      emit(FacebookLoginSuccessState());
     });
-    emit(FacebookLoginSuccessState());
   }
 
   Future<void> googleLogin() async {
