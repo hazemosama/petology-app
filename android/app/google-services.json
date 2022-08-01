@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "11778867547",
+    "project_id": "petology-358114",
+    "storage_bucket": "petology-358114.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11778867547:android:fcea57e734f8ffd0019a7e",
+        "android_client_info": {
+          "package_name": "com.petology.petology"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11778867547-pcch32g29orh87ct186f6qdc84q93rbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.petology.petology",
+            "certificate_hash": "0f86769817538b78b71b49882f26099f6421db86"
+          }
+        },
+        {
+          "client_id": "11778867547-3np6c8t1is60qfl2tikffsgubffi92ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCST0V8BLzeyosVUmEuKxbG8KpekKXPmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11778867547-3np6c8t1is60qfl2tikffsgubffi92ur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
