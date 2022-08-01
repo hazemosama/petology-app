@@ -37,7 +37,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -76,8 +75,6 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login-screen',
     );
   }
-
-//
   MaterialColor buildMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};

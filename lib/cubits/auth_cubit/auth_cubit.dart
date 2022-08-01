@@ -31,6 +31,7 @@ class AuthCubit extends Cubit<AuthStates> {
         value!.authentication.then(
           (value) {
             googleToken = value.accessToken;
+            print(value.idToken);
           },
         );
       },
