@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:petology/screens/login_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/widgets/default_form_field.dart';
 
@@ -283,7 +284,9 @@ class SignupScreen extends StatelessWidget {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context,LoginScreen.routeName);
+                                },
                                 child: const Text(
                                   'Login',
                                   style: TextStyle(
