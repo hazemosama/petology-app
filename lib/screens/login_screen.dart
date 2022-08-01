@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,6 +31,19 @@ class LoginScreen extends StatelessWidget {
               (value) => Navigator.pushReplacementNamed(
                 context,
                 HelpScreen.routeName,
+              ),
+            );
+          } else if (state is SocialLoginLoadingState) {
+            showDialog(
+              context: context,
+              builder: (context) => const AlertDialog(
+                title: Text(
+                  'Signing In, please wait',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                ),
+                content: LinearProgressIndicator(),
               ),
             );
           }
@@ -229,7 +243,9 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: MaterialButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              AuthCubit.get(context).googleLogin();
+                                            },
                                             color: Theme.of(context)
                                                 .scaffoldBackgroundColor,
                                             shape: RoundedRectangleBorder(

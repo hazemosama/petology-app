@@ -13,3 +13,7 @@ class FacebookAuthSuccessState extends AuthStates {
 }
 
 class FacebookAuthErrorState extends AuthStates {}
+
+class GoogleLoginSuccessState extends AuthStates {}
+
+class SocialLoginLoadingState extends AuthStates {}
