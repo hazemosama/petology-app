@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petology/network/end_points.dart';
 import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/dio_helper.dart';
@@ -17,6 +18,7 @@ void main() async {
   DioHelper.init();
 
   await CacheHelper.init();
+  token = CacheHelper.getData(key: 'token') ?? '';
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

@@ -46,6 +46,17 @@ class LoginScreen extends StatelessWidget {
                 content: LinearProgressIndicator(),
               ),
             );
+           }
+          else if(state is LoginSuccessState){
+            CacheHelper.saveData(
+              key: 'token',
+              value: state.token,
+            ).then(
+                  (value) => Navigator.pushReplacementNamed(
+                context,
+                HelpScreen.routeName,
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -130,7 +141,11 @@ class LoginScreen extends StatelessWidget {
                                       height: 25.0,
                                     ),
                                     MaterialButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        AuthCubit.get(context).userLogin(
+                                            email: emailController.text,
+                                            password: passwordController.text);
+                                      },
                                       color: AppColors.darkBrown,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -244,7 +259,8 @@ class LoginScreen extends StatelessWidget {
                                         Expanded(
                                           child: MaterialButton(
                                             onPressed: () {
-                                              AuthCubit.get(context).googleLogin();
+                                              AuthCubit.get(context)
+                                                  .googleLogin();
                                             },
                                             color: Theme.of(context)
                                                 .scaffoldBackgroundColor,
