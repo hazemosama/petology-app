@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:petology/constants/app_constants.dart';
 import 'package:petology/models/Signup_model.dart';
 import 'package:petology/models/facebook_auth_model.dart';
 import 'package:petology/models/login_model.dart';
@@ -82,6 +84,7 @@ class AuthCubit extends Cubit<AuthStates> {
   //     }
   //   });
   // }
+
   //------------------Login with email-----------------------------//
   LoginModel? loginModel;
 
@@ -106,7 +109,8 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
 //--------------------signup with full data ------------------------//
-  SignupModel? signupModel;
+  SignUpModel? signupModel;
+
   void userSignup({
     required String email,
     required String password,
@@ -127,13 +131,12 @@ class AuthCubit extends Cubit<AuthStates> {
         'country': country,
       },
     ).then((value) {
-      signupModel = SignupModel.fromJson(value.data);
+      signupModel = SignUpModel.fromJson(value.data);
       print(value.data);
-      emit(SignupSuccessState());
+      emit(SignupSuccessState(signupModel));
     }).catchError((error) {
-      print('error is الالا = ${error.toString()}');
+      print('error is = ${error.toString()}');
       emit(SignupErrorState(error.toString()));
     });
   }
 }
-//abdelrahmanabdelghany80@gmail.com

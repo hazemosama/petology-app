@@ -33,12 +33,12 @@ class LoginErrorState extends AuthStates {
   LoginErrorState(this.error);
 }
 
-class SignupLoadingState extends AuthStates {
-
-}
+class SignupLoadingState extends AuthStates {}
 
 class SignupSuccessState extends AuthStates {
+  final SignUpModel? model;
 
+  SignupSuccessState(this.model);
 }
 
 class SignupErrorState extends AuthStates {

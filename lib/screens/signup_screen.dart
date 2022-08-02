@@ -8,6 +8,8 @@ import 'package:petology/screens/login_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/widgets/default_form_field.dart';
 
+import '../constants/app_constants.dart';
+
 class SignupScreen extends StatelessWidget {
   static const routeName = '/sign-up-screen';
 
@@ -51,6 +53,10 @@ class SignupScreen extends StatelessWidget {
               ),
             );
           } else if (state is SignupSuccessState) {
+            AppConstants.showToast(
+              msg: state.model!.message,
+              type: ToastStates.success,
+            );
             Navigator.pushReplacementNamed(
               context,
               LoginScreen.routeName,
@@ -268,6 +274,7 @@ class SignupScreen extends StatelessWidget {
                                 ),
                                 DefaultFormField(
                                   width: 400,
+                                  text: '+2',
                                   hint: 'phone number',
                                   controller: phoneController,
                                   keyboardType: TextInputType.text,

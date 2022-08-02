@@ -3,7 +3,7 @@ import 'package:petology/themes/colors.dart';
 
 class DefaultFormField extends StatelessWidget {
   double? width;
-   String? hint;
+  String? hint;
   bool? isPassword;
   TextEditingController? controller;
   TextInputType keyboardType;
@@ -17,8 +17,9 @@ class DefaultFormField extends StatelessWidget {
   VoidCallback? suffixPressed;
   bool isClickable = true;
   Color? color;
+  String? text;
 
-   DefaultFormField({
+  DefaultFormField({
     super.key,
     this.controller,
     this.width,
@@ -34,8 +35,8 @@ class DefaultFormField extends StatelessWidget {
     this.suffixPressed,
     bool isClickable = true,
     this.isPassword,
-  this.color
-
+    this.color,
+    this.text,
   });
 
   @override
@@ -51,13 +52,14 @@ class DefaultFormField extends StatelessWidget {
         child: TextFormField(
           controller: controller,
           keyboardType: keyboardType,
-          obscureText: isPassword??false,
+          obscureText: isPassword ?? false,
           enabled: isClickable,
           onFieldSubmitted: onSubmit,
           onChanged: onChange,
           onTap: onTap,
           validator: validate,
           decoration: InputDecoration(
+            prefixText: text,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(50.0),
@@ -65,18 +67,19 @@ class DefaultFormField extends StatelessWidget {
             labelText: label,
             suffixIcon: suffix != null
                 ? IconButton(
-              onPressed: suffixPressed,
-              icon: Icon(
-                suffix,
-                color: color,
-              ),
-            )
+                    onPressed: suffixPressed,
+                    icon: Icon(
+                      suffix,
+                      color: color,
+                    ),
+                  )
                 : null,
             hintText: hint ?? 'hint',
             hintStyle: const TextStyle(
               color: AppColors.medBrown,
             ),
-          ),),
+          ),
+        ),
       ),
     );
   }
