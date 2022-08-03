@@ -136,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  ImageAssets.caty,
+                                  ImageAssets.aboutDog,
                                   width: 100,
                                   height: 100,
                                 ),
