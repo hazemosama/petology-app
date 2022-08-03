@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/screens/help_screen.dart';
+import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/app_drawer.dart';
 import '../cubits/app_cubit/app_cubit.dart';
@@ -41,6 +42,8 @@ class HomeLayout extends StatelessWidget {
           ),
           body: appCubit.screens[appCubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: AppColors.darkBrown,
+            unselectedItemColor: AppColors.lightSilver,
             currentIndex: appCubit.currentIndex,
             items: appCubit.navBarItems,
             onTap: (index) {
