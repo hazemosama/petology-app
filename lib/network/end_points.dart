@@ -1,5 +1,6 @@
 class EndPoints {
   static const String fbLogin = 'social_auth/facebook/';
+  static const String google = 'social_auth/google/';
   static const String signup = 'accounts/auth/SignUp/';
   static const String login = 'accounts/auth/login/';
 }

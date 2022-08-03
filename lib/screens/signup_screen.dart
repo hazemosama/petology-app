@@ -29,38 +29,19 @@ class SignupScreen extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthStates>(
         listener: (context, state) {
-          if (state is FacebookAuthSuccessState) {
-            CacheHelper.saveData(
-              key: 'token',
-              value: state.token,
-            ).then(
-              (value) => Navigator.pushReplacementNamed(
-                context,
-                HelpScreen.routeName,
-              ),
-            );
-          } else if (state is SocialLoginLoadingState) {
-            showDialog(
-              context: context,
-              builder: (context) => const AlertDialog(
-                title: Text(
-                  'Signing In, please wait',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                  ),
-                ),
-                content: LinearProgressIndicator(),
-              ),
-            );
+          if (state is SocialLoginLoadingState || state is SignupLoadingState) {
+            AppConstants.appShowDialog(context);
+          } else if (state is SocialLoginSuccessState) {
+            CacheHelper.saveData(key: 'token', value: state.token)
+                .then((value) {
+              Navigator.pushNamed(context, HelpScreen.routeName);
+            });
           } else if (state is SignupSuccessState) {
             AppConstants.showToast(
               msg: state.model!.message,
               type: ToastStates.success,
             );
-            Navigator.pushReplacementNamed(
-              context,
-              LoginScreen.routeName,
-            );
+            Navigator.pushNamed(context, LoginScreen.routeName);
           }
         },
         builder: (context, state) {
@@ -112,7 +93,9 @@ class SignupScreen extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: MaterialButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          AuthCubit.get(context).facebookAuth();
+                                        },
                                         color: const Color(0xFF2F4582),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -149,7 +132,9 @@ class SignupScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: MaterialButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          AuthCubit.get(context).googleLogin();
+                                        },
                                         color: Theme.of(context)
                                             .scaffoldBackgroundColor,
                                         shape: RoundedRectangleBorder(

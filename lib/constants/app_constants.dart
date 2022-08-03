@@ -35,4 +35,20 @@ class AppConstants {
       gravity: gravity ?? ToastGravity.BOTTOM,
     );
   }
+
+  static void appShowDialog(context) {
+    showDialog(
+      context: context,
+      builder: (context) => const AlertDialog(
+        title: Text(
+          'Signing In, please wait',
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
+        ),
+        content: LinearProgressIndicator(),
+      ),
+    );
+  }
+
 }

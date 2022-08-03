@@ -1,5 +1,5 @@
-class FacebookAuthModel {
-  FacebookAuthModel({
+class SocialAuthModel {
+  SocialAuthModel({
     required this.status,
     required this.message,
     required this.data,
@@ -8,7 +8,7 @@ class FacebookAuthModel {
   late final String message;
   late final Data data;
 
-  FacebookAuthModel.fromJson(Map<String, dynamic> json){
+  SocialAuthModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
     data = Data.fromJson(json['data']);

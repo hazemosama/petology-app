@@ -5,19 +5,19 @@ abstract class AuthStates {}
 
 class AuthInitialState extends AuthStates {}
 
-class FacebookLoginSuccessState extends AuthStates {}
+class SocialLoginLoadingState extends AuthStates {}
 
-class FacebookAuthSuccessState extends AuthStates {
+class SocialLoginSuccessState extends AuthStates {
   final String? token;
 
-  FacebookAuthSuccessState(this.token);
+  SocialLoginSuccessState(this.token);
 }
 
-class FacebookAuthErrorState extends AuthStates {}
+class SocialLoginErrorState extends AuthStates {
+  final String? error;
 
-class GoogleLoginSuccessState extends AuthStates {}
-
-class SocialLoginLoadingState extends AuthStates {}
+  SocialLoginErrorState(this.error);
+}
 
 class LoginLoadingState extends AuthStates {}
 

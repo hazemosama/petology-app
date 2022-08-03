@@ -18,29 +18,26 @@ class AuthCubit extends Cubit<AuthStates> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
 //------------------Login && Signup with facebook account------------------------//
-  FacebookAuthModel? facebookAuthModel;
+  SocialAuthModel? socialAuthModel;
 
-  Future<void> facebookLogin() async {
+  Future<void> facebookAuth() async {
     String? fbToken;
     FacebookAuth.instance.login().then((value) {
       fbToken = value.accessToken!.token;
-      emit(SocialLoginLoadingState());
-      facebookAuth(fbToken!);
-      emit(FacebookLoginSuccessState());
+      facebookLogin(fbToken!);
     });
   }
 
-  void facebookAuth(String fbToken) {
+  void facebookLogin(String fbToken) {
+    emit(SocialLoginLoadingState());
     DioHelper.postData(
       url: EndPoints.fbLogin,
       data: {'auth_token': fbToken},
     ).then((value) {
-      facebookAuthModel = FacebookAuthModel.fromJson(value.data);
-      emit(
-        FacebookAuthSuccessState(facebookAuthModel!.data.access),
-      );
+      socialAuthModel = SocialAuthModel.fromJson(value.data);
+      emit(SocialLoginSuccessState(socialAuthModel!.data.access),);
     }).catchError((error) {
-      emit(FacebookAuthErrorState());
+      emit(SocialLoginErrorState(error.toString()));
       if (kDebugMode) {
         print(error.toString());
       }
@@ -50,40 +47,38 @@ class AuthCubit extends Cubit<AuthStates> {
   //------------------Login && Signup with Google account------------------------//
 
   Future<void> googleLogin() async {
-    String? googleToken;
     await GoogleSignIn().signIn().then(
       (value) {
         value!.authentication.then(
           (value) {
-            googleToken = value.accessToken;
-            print(value.idToken);
-            emit(GoogleLoginSuccessState());
+            googleAuth(value.idToken!);
           },
         );
       },
     ).catchError(
       (error) {
-        print(error.toString());
+        if (kDebugMode) {
+          print(error.toString());
+        }
       },
     );
   }
 
-  // void googleAuth(String googleToken) {
-  //   DioHelper.postData(
-  //     url: EndPoints.fbLogin,
-  //     data: {'auth_token': googleToken},
-  //   ).then((value) {
-  //     facebookAuthModel = FacebookAuthModel.fromJson(value.data);
-  //     emit(
-  //       FacebookAuthSuccessState(facebookAuthModel!.data.access),
-  //     );
-  //   }).catchError((error) {
-  //     emit(FacebookAuthErrorState());
-  //     if (kDebugMode) {
-  //       print(error.toString());
-  //     }
-  //   });
-  // }
+  void googleAuth(String googleToken) {
+    emit(SocialLoginLoadingState());
+    DioHelper.postData(
+      url: EndPoints.google,
+      data: {'auth_token': googleToken},
+    ).then((value) {
+      socialAuthModel = SocialAuthModel.fromJson(value.data);
+      emit(SocialLoginSuccessState(socialAuthModel!.data.access));
+    }).catchError((error) {
+      emit(SocialLoginErrorState(error.toString()));
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
+  }
 
   //------------------Login with email-----------------------------//
   LoginModel? loginModel;

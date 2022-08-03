@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:petology/constants/app_constants.dart';
 import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/screens/help_screen.dart';
@@ -22,41 +23,18 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthStates>(
-        listener: (context, state) {
-          if (state is FacebookAuthSuccessState) {
-            CacheHelper.saveData(
-              key: 'token',
-              value: state.token,
-            ).then(
-              (value) => Navigator.pushReplacementNamed(
-                context,
-                HelpScreen.routeName,
-              ),
-            );
-          } else if (state is SocialLoginLoadingState) {
-            showDialog(
-              context: context,
-              builder: (context) => const AlertDialog(
-                title: Text(
-                  'Signing In, please wait',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                  ),
-                ),
-                content: LinearProgressIndicator(),
-              ),
-            );
-           }
-          else if(state is LoginSuccessState){
-            CacheHelper.saveData(
-              key: 'token',
-              value: state.token,
-            ).then(
-                  (value) => Navigator.pushReplacementNamed(
-                context,
-                HelpScreen.routeName,
-              ),
-            );
+        listener: (context, state)
+        {
+          if (state is SocialLoginLoadingState || state is LoginLoadingState) {
+            AppConstants.appShowDialog(context);
+          } else if (state is SocialLoginSuccessState) {
+            CacheHelper.saveData(key: 'token', value: state.token)
+                .then((value) {
+              Navigator.pushNamed(context, HelpScreen.routeName);
+            });
+          } else if (state is LoginSuccessState) {
+            CacheHelper.saveData(key: 'token', value: state.token);
+            Navigator.pushNamed(context, HelpScreen.routeName);
           }
         },
         builder: (context, state) {
@@ -220,7 +198,7 @@ class LoginScreen extends StatelessWidget {
                                           child: MaterialButton(
                                             onPressed: () {
                                               AuthCubit.get(context)
-                                                  .facebookLogin();
+                                                  .facebookAuth();
                                             },
                                             color: const Color(0xFF2F4582),
                                             shape: RoundedRectangleBorder(
