@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
-import 'package:petology/screens/about_us_screen.dart';
-import 'package:petology/screens/help_screen.dart';
+import 'package:petology/screens/home_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/request_Screen.dart';
 import 'package:petology/screens/services_screen.dart';
-import 'package:petology/widgets/text_with_background.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
@@ -16,9 +14,9 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> screens = [
-    const HomeScreen(),
+    HomeScreen(),
     const KindScreen(),
-    const RequestScreen(),
+    RequestScreen(),
     const ServicesScreen()
   ];
 

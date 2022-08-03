@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:petology/widgets/deafult_drop_down_menu.dart';
 
 class RequestScreen extends StatelessWidget {
-  const RequestScreen({Key? key}) : super(key: key);
-
+  RequestScreen({Key? key}) : super(key: key);
+  final List<String> genderItems = ['cat', 'dog', 'شخة'];
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Request Screen'));
+    return Center(
+      child: DefaultDropDownMenu(items: genderItems),
+    );
   }
 }
