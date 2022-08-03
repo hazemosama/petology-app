@@ -18,7 +18,7 @@ class CareScreen extends StatelessWidget {
               TextWithBackground(
                 text: 'How to take care of your friends?',
               ),
-              SizedBox(
+              const SizedBox(
                 height: 22,
               ),
               SizedBox(

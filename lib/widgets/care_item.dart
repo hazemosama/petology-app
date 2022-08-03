@@ -58,7 +58,7 @@ class CareItem extends StatelessWidget {
           ),
           Text(
             careHeads[index],
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 23.0,
               fontWeight: FontWeight.w500
             ),

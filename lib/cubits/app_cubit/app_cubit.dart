@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
-import 'package:petology/screens/about_us_screen.dart';
+import 'package:petology/screens/home_screen.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
 
