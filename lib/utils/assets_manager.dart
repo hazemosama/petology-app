@@ -18,3 +18,4 @@ class ImageAssets {
   static const String vitamins = '${imgPath}vitamins.png';
   static const String bowls = '${imgPath}bowls.png';
 }
+//
