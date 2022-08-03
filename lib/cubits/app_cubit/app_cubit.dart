@@ -12,7 +12,7 @@ class AppCubit extends Cubit<AppStates> {
   int currentIndex = 0;
 
   List<Widget> screens = [
-    const AboutUsScreen(),
+    const HomeScreen(),
     HelpScreen(),
     const KindScreen(),
   ];
