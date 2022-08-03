@@ -26,7 +26,7 @@ class DefaultDropDownMenu extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: DropdownButtonFormField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 border: InputBorder.none
             ),
             onChanged: (value) {

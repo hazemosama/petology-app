@@ -28,15 +28,15 @@ void main() async {
   BlocOverrides.runZoned(
     () {
       runApp(
-        const MyApp(),
+        const Petology(),
       );
     },
     blocObserver: MyBlocObserver(),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Petology extends StatelessWidget {
+  const Petology({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
