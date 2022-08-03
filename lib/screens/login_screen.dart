@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:petology/constants/app_constants.dart';
+import 'package:petology/utils/app_constants.dart';
 import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/screens/help_screen.dart';
+import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/default_form_field.dart';
 import '../themes/colors.dart';
 
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                     alignment: AlignmentDirectional.topCenter,
                     children: [
                       SvgPicture.asset(
-                        'assets/images/dog.svg',
+                        ImageAssets.loginDog,
                         width: 210,
                         height: 180,
                       ),
@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 173),
                         child: Center(
                           child: Container(
-                            height: 560,
+                            height: 565,
                             width: 355,
                             decoration: BoxDecoration(
                               border: Border.all(

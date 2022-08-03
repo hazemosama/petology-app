@@ -23,7 +23,7 @@ class HelpScreen extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             Positioned(
-              top: 80,
+              top: 25,
               left: 20,
               right: 20,
               child: Container(

@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:petology/constants/app_constants.dart';
 import 'package:petology/models/Signup_model.dart';
 import 'package:petology/models/facebook_auth_model.dart';
 import 'package:petology/models/login_model.dart';
@@ -52,6 +50,7 @@ class AuthCubit extends Cubit<AuthStates> {
         value!.authentication.then(
           (value) {
             googleAuth(value.idToken!);
+            print(value.idToken);
           },
         );
       },

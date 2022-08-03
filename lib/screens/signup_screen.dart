@@ -8,7 +8,7 @@ import 'package:petology/screens/login_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/widgets/default_form_field.dart';
 
-import '../constants/app_constants.dart';
+import '../utils/app_constants.dart';
 
 class SignupScreen extends StatelessWidget {
   static const routeName = '/sign-up-screen';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 @immutable
-abstract class AppState {}
+abstract class AppStates {}
 
-class AppInitial extends AppState {}
+class AppInitial extends AppStates {}
+
+class ChangeIconState extends AppStates {}

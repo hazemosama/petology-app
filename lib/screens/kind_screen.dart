@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petology/themes/colors.dart';
+import 'package:petology/utils/assets_manager.dart';
 
 class KindScreen extends StatefulWidget {
   const KindScreen({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class KindScreenState extends State<KindScreen> {
               alignment: Alignment.centerRight,
               children: [
                 Image.asset(
-                  'assets/icons/foot.png',
+                  ImageAssets.foot,
                   height: 60.0,
                   width: 60.0,
                 ),
@@ -90,7 +91,7 @@ class KindScreenState extends State<KindScreen> {
                           children: const [
                             Image(
                               image: AssetImage(
-                                'assets/images/dog.png',
+                                ImageAssets.kindDog,
                               ),
                               width: 90.0,
                               height: 90.0,
