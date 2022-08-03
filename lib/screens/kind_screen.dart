@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
+import 'package:petology/widgets/text_with_background.dart';
 
 class KindScreen extends StatefulWidget {
   const KindScreen({Key? key}) : super(key: key);
@@ -25,23 +26,8 @@ class KindScreenState extends State<KindScreen> {
             const SizedBox(
               height: 100.0,
             ),
-            Stack(
-              alignment: Alignment.centerRight,
-              children: [
-                Image.asset(
-                  ImageAssets.foot,
-                  height: 60.0,
-                  width: 60.0,
-                ),
-                const Text(
-                  'Let\'s get this right...',
-                  style: TextStyle(
-                    color: AppColors.darkBrown,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            TextWithBackground(
+              text: 'Let\'s get this right...',
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

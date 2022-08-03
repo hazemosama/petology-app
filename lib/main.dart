@@ -6,6 +6,7 @@ import 'package:petology/network/end_points.dart';
 import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/dio_helper.dart';
+import 'package:petology/screens/feed_screen.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/screens/kind_screen.dart';
@@ -19,7 +20,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
     ),
   );
   DioHelper.init();
@@ -67,8 +68,9 @@ class MyApp extends StatelessWidget {
           LoginScreen.routeName: (context) => LoginScreen(),
           SignupScreen.routeName: (context) => SignupScreen(),
           HomeLayout.routeName: (context) => HomeLayout(),
+          CareScreen.routeName: (context) => const CareScreen(),
         },
-        initialRoute: HomeLayout.routeName,
+        initialRoute: CareScreen.routeName,
       ),
     );
   }
