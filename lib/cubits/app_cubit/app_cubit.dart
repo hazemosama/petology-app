@@ -4,6 +4,8 @@ import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/screens/home_screen.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
+import 'package:petology/screens/request_Screen.dart';
+import 'package:petology/screens/services_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
@@ -13,11 +15,13 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    HelpScreen(),
     const KindScreen(),
+    const RequestScreen(),
+    const ServicesScreen()
   ];
 
-  List<BottomNavigationBarItem> navBarItems = [
+  List<BottomNavigationBarItem> navBarItems =
+  [
     const BottomNavigationBarItem(
       icon: Icon(Icons.home_filled),
       label: 'Home',
@@ -34,11 +38,9 @@ class AppCubit extends Cubit<AppStates> {
 
   GlobalKey<ScaffoldState> homeKey = GlobalKey();
 
-  void changeIcon(index) {
-
-    if (index == 2) {
-      homeKey.currentState!.openDrawer();
-    } else {
+  void changeIcon(index)
+  {
+    {
       currentIndex = index;
       emit(ChangeIconState());
     }
