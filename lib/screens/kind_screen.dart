@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petology/screens/Adaption_Screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/text_with_background.dart';
@@ -57,6 +58,7 @@ class KindScreenState extends State<KindScreen> {
                         setState(() {
                           selected = 'dog';
                         });
+                        Navigator.pushNamed(context, AdaptionScreen.routeName);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
@@ -106,6 +108,7 @@ class KindScreenState extends State<KindScreen> {
                         setState(() {
                           selected = 'cat';
                         });
+                        Navigator.pushNamed(context, AdaptionScreen.routeName);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(

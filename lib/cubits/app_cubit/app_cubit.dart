@@ -7,7 +7,6 @@ import 'package:petology/screens/kind_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
-
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
@@ -44,5 +43,4 @@ class AppCubit extends Cubit<AppStates> {
       emit(ChangeIconState());
     }
   }
-
 }

@@ -10,11 +10,4 @@ class ImageAssets {
   static const String googleLogo = '${imgPath}google.png';
   static const String menuIcon = '${imgPath}menu.svg';
   static const String foot = '${imgPath}foot.png';
-  static const String food = '${imgPath}food.png';
-  static const String transportation = '${imgPath}transportation.png';
-  static const String toys = '${imgPath}toys.png';
-  static const String inoculation = '${imgPath}inoculation.png';
-  static const String sleeping = '${imgPath}sleeping.png';
-  static const String vitamins = '${imgPath}vitamins.png';
-  static const String bowls = '${imgPath}bowls.png';
 }
