@@ -4,17 +4,22 @@ import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/screens/about_us_screen.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
+import 'package:petology/screens/request_Screen.dart';
+import 'package:petology/screens/services_screen.dart';
+import 'package:petology/widgets/text_with_background.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
+
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
 
   List<Widget> screens = [
-    const AboutUsScreen(),
-    HelpScreen(),
+    const HomeScreen(),
     const KindScreen(),
+    const RequestScreen(),
+    const ServicesScreen()
   ];
 
   List<BottomNavigationBarItem> navBarItems = [
@@ -23,24 +28,23 @@ class AppCubit extends Cubit<AppStates> {
       label: 'Home',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      label: 'Help',
+      icon: Icon(Icons.category),
+      label: 'Category',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.remove_from_queue_sharp),
+      label: 'Request',
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.more_horiz),
-      label: 'More',
+      label: 'Services',
     ),
   ];
 
   GlobalKey<ScaffoldState> homeKey = GlobalKey();
 
   void changeIcon(index) {
-
-    if (index == 2) {
-      homeKey.currentState!.openDrawer();
-    } else {
-      currentIndex = index;
-      emit(ChangeIconState());
-    }
+    currentIndex = index;
+    emit(ChangeIconState());
   }
 }
