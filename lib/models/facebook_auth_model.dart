@@ -14,6 +14,7 @@ class SocialAuthModel {
     data = Data.fromJson(json['data']);
   }
 
+
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;

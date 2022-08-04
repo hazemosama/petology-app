@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/app_constants.dart';
 import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/text_with_background.dart';
 
 import '../widgets/care_item.dart';
-import 'adoption_screen.dart';
 
 class ServicesScreen extends StatelessWidget {
   const ServicesScreen({Key? key}) : super(key: key);
@@ -19,7 +17,7 @@ class ServicesScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            TextWithBackground(
+            const TextWithBackground(
               text: 'How to take care of your friends?',
             ),
             const SizedBox(

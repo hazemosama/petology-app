@@ -30,7 +30,7 @@ class DefaultDropDownMenu extends StatelessWidget {
             decoration:InputDecoration(
                 border: InputBorder.none,
               hintText: hint,
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 color: AppColors.medBrown,
               ),
             ),

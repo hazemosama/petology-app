@@ -9,7 +9,7 @@ import 'package:petology/widgets/app_drawer.dart';
 import '../cubits/app_cubit/app_cubit.dart';
 
 class HomeLayout extends StatelessWidget {
-  HomeLayout({Key? key}) : super(key: key);
+  const HomeLayout({Key? key}) : super(key: key);
   static const routeName = '/home';
 
 

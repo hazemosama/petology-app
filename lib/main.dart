@@ -23,8 +23,9 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  DioHelper.init();
   await CacheHelper.init();
+  DioHelper.init();
+
   token = CacheHelper.getData(key: 'token') ?? '';
   BlocOverrides.runZoned(
     () {
@@ -57,7 +58,7 @@ class Petology extends StatelessWidget {
           minWidth: 480,
           defaultScale: true,
           breakpoints: [
-            const ResponsiveBreakpoint.resize(380, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(390, name: MOBILE),
             const ResponsiveBreakpoint.autoScale(800, name: TABLET),
             const ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
           ],
@@ -67,10 +68,10 @@ class Petology extends StatelessWidget {
           KindScreen.routeName: (context) => const KindScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           SignupScreen.routeName: (context) => SignupScreen(),
-          HomeLayout.routeName: (context) => HomeLayout(),
+          HomeLayout.routeName: (context) => const HomeLayout(),
           AdoptionScreen.routeName: (context) => AdoptionScreen(),
         },
-        initialRoute:HomeLayout.routeName,
+        initialRoute: HomeLayout.routeName,
       ),
     );
   }

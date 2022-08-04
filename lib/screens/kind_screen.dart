@@ -27,7 +27,7 @@ class KindScreenState extends State<KindScreen> {
             const SizedBox(
               height: 100.0,
             ),
-            TextWithBackground(
+            const TextWithBackground(
               text: 'Let\'s get this right...',
             ),
             Row(
