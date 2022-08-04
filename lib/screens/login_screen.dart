@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 20.0,
+                    top: 5.0,
                   ),
                   child: Stack(
                     alignment: AlignmentDirectional.topCenter,
@@ -53,13 +53,13 @@ class LoginScreen extends StatelessWidget {
                       SvgPicture.asset(
                         ImageAssets.loginDog,
                         width: 210,
-                        height: 180,
+                        height: 150,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 173),
+                        padding: const EdgeInsets.only(top: 143),
                         child: Center(
                           child: Container(
-                            height: 565,
+                            height: 550,
                             width: 355,
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -86,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 30.0,
+                                      height: 25.0,
                                     ),
                                     DefaultFormField(
                                       hint: 'Email',
@@ -100,7 +100,7 @@ class LoginScreen extends StatelessWidget {
                                       },
                                     ),
                                     const SizedBox(
-                                      height: 20.0,
+                                      height: 15.0,
                                     ),
                                     DefaultFormField(
                                       hint: 'Password',
@@ -211,7 +211,7 @@ class LoginScreen extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Image.asset(
-                                                  'assets/icons/fb.png',
+                                                  ImageAssets.fbLogo,
                                                   width: 24,
                                                   height: 24,
                                                 ),
@@ -252,7 +252,7 @@ class LoginScreen extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Image.asset(
-                                                  'assets/icons/google.png',
+                                                  ImageAssets.googleLogo,
                                                   width: 24,
                                                   height: 24,
                                                 ),

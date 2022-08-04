@@ -71,6 +71,7 @@ class AuthCubit extends Cubit<AuthStates> {
     ).then((value) {
       socialAuthModel = SocialAuthModel.fromJson(value.data);
       emit(SocialLoginSuccessState(socialAuthModel!.data.access));
+      print(socialAuthModel!.data.access);
     }).catchError((error) {
       emit(SocialLoginErrorState(error.toString()));
       if (kDebugMode) {

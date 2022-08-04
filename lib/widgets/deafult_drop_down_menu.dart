@@ -7,9 +7,10 @@ class DefaultDropDownMenu extends StatelessWidget {
     Key? key,
     required this.items,
     this.width,
+    this.hint,
 
   }) : super(key: key);
-
+  final String? hint;
   final double? width;
   final List<String> items;
 
@@ -26,8 +27,12 @@ class DefaultDropDownMenu extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: DropdownButtonFormField(
-            decoration: const InputDecoration(
-                border: InputBorder.none
+            decoration:InputDecoration(
+                border: InputBorder.none,
+              hintText: hint,
+              hintStyle: TextStyle(
+                color: AppColors.medBrown,
+              ),
             ),
             onChanged: (value) {
               print(value);

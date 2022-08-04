@@ -6,6 +6,7 @@ import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/login_screen.dart';
 import 'package:petology/themes/colors.dart';
+import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/default_form_field.dart';
 
 import '../utils/app_constants.dart';
@@ -55,23 +56,22 @@ class SignupScreen extends StatelessWidget {
                     height: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                  Positioned(
-                    top: 25,
-                    left: 20,
-                    right: 20,
-                    child: Container(
-                      height: 750,
-                      width: 400,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 1.25,
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 20, left: 20, right: 20),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        height: 770,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1.25,
+                          ),
+                          borderRadius: BorderRadius.circular(40),
                         ),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
                           child: Form(
                             key: formKey,
                             child: Column(
@@ -107,7 +107,7 @@ class SignupScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Image.asset(
-                                              'assets/icons/fb.png',
+                                              ImageAssets.fbLogo,
                                               width: 24,
                                               height: 24,
                                             ),
@@ -147,7 +147,7 @@ class SignupScreen extends StatelessWidget {
                                               MainAxisAlignment.center,
                                           children: [
                                             Image.asset(
-                                              'assets/icons/google.png',
+                                              ImageAssets.googleLogo,
                                               width: 24,
                                               height: 24,
                                             ),
@@ -259,7 +259,6 @@ class SignupScreen extends StatelessWidget {
                                 ),
                                 DefaultFormField(
                                   width: 400,
-                                  text: '+2',
                                   hint: 'phone number',
                                   controller: phoneController,
                                   keyboardType: TextInputType.text,

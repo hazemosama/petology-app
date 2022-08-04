@@ -69,7 +69,7 @@ class Petology extends StatelessWidget {
           SignupScreen.routeName: (context) => SignupScreen(),
           HomeLayout.routeName: (context) => HomeLayout(),
         },
-        initialRoute: HomeLayout.routeName,
+        initialRoute:HomeLayout.routeName,
       ),
     );
   }

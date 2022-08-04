@@ -139,7 +139,7 @@ class HelpScreen extends StatelessWidget {
                             minWidth: 400.0,
                             height: 60,
                             child: const Text(
-                              'Sign up',
+                              'Send',
                               style: TextStyle(
                                 color: AppColors.lightBrown,
                                 fontSize: 18.0,
