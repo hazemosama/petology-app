@@ -23,10 +23,13 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: BlocConsumer<AuthCubit, AuthStates>(
-        listener: (context, state)
-        {
+        listener: (context, state) {
           if (state is SocialLoginLoadingState || state is LoginLoadingState) {
-            AppConstants.appShowDialog(context);
+            AppConstants.appShowDialog(
+              context: context,
+              content: LinearProgressIndicator(),
+              text: 'Logging in, please wait'
+            );
           } else if (state is SocialLoginSuccessState) {
             CacheHelper.saveData(key: 'token', value: state.token)
                 .then((value) {

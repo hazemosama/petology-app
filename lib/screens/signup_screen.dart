@@ -31,7 +31,11 @@ class SignupScreen extends StatelessWidget {
       child: BlocConsumer<AuthCubit, AuthStates>(
         listener: (context, state) {
           if (state is SocialLoginLoadingState || state is SignupLoadingState) {
-            AppConstants.appShowDialog(context);
+            AppConstants.appShowDialog(
+              context: context,
+              content: const LinearProgressIndicator(),
+              text: 'Creating your account, please wait',
+            );
           } else if (state is SocialLoginSuccessState) {
             CacheHelper.saveData(key: 'token', value: state.token)
                 .then((value) {

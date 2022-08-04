@@ -31,23 +31,31 @@ class AppConstants {
       toastLength: Toast.LENGTH_LONG,
       msg: msg,
       backgroundColor:
-          type != null ? chooseToastColor(type) : color ?? AppColors.medBrown,
+      type != null ? chooseToastColor(type) : color ?? AppColors.medBrown,
       gravity: gravity ?? ToastGravity.BOTTOM,
     );
   }
 
-  static void appShowDialog(context) {
+  static void appShowDialog({
+    required BuildContext context,
+    String? text,
+    required Widget content,
+  }) {
     showDialog(
       context: context,
-      builder: (context) => const AlertDialog(
-        title: Text(
-          'Signing In, please wait',
-          style: TextStyle(
-            fontSize: 16.0,
+      builder: (context) =>
+          AlertDialog(
+            title: Text(
+              text!,
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
+            ),
+            content: content,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)
+            ),
           ),
-        ),
-        content: LinearProgressIndicator(),
-      ),
     );
   }
 
