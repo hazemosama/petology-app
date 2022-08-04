@@ -54,12 +54,12 @@ class Petology extends StatelessWidget {
         builder: (context, child) => ResponsiveWrapper.builder(
           child,
           maxWidth: 1200,
-          minWidth: 450,
+          minWidth: 480,
           defaultScale: true,
           breakpoints: [
-            const ResponsiveBreakpoint.autoScale(390, name: MOBILE),
+            const ResponsiveBreakpoint.resize(380, name: MOBILE),
             const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+            const ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
           ],
         ),
         routes: {

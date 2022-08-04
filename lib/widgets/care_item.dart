@@ -3,7 +3,8 @@ import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 
 class CareItem extends StatelessWidget {
-  List<String> careIcons = [
+
+  final List<String> careIcons = [
     ImageAssets.food,
     ImageAssets.transportation,
     ImageAssets.toys,
@@ -13,7 +14,7 @@ class CareItem extends StatelessWidget {
     ImageAssets.bowls,
   ];
 
-  List<String> careHeads = [
+  final List<String> careHeads = [
     'Pet food',
     'Tranpostaion',
     'Toys',
@@ -23,7 +24,7 @@ class CareItem extends StatelessWidget {
     'Bowls and Cups',
   ];
 
-  int index;
+  final int index;
 
   CareItem({
     Key? key,
@@ -44,7 +45,7 @@ class CareItem extends StatelessWidget {
                 radius: 45,
               ),
               Transform.translate(
-                offset: Offset(0,-10),
+                offset: const Offset(0,-10),
                 child: Image.asset(
                   careIcons[index],
                   height: 65,

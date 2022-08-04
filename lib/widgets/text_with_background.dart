@@ -3,9 +3,10 @@ import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 
 class TextWithBackground extends StatelessWidget {
-  String text;
-  double? fontSize;
-  TextWithBackground({
+  final String text;
+  final double? fontSize;
+
+  const TextWithBackground({
     Key? key,
     required this.text,
     this.fontSize,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petology/screens/home_screen.dart';
 import 'package:petology/widgets/deafult_drop_down_menu.dart';
+import 'package:petology/widgets/pet_container.dart';
 
 class AdoptionScreen extends StatelessWidget {
   AdoptionScreen({Key? key}) : super(key: key);
@@ -20,9 +20,9 @@ class AdoptionScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               ExpansionTile(
-                leading: Icon(Icons.filter_list_alt),
-                title: Text('Filters'),
-                childrenPadding: EdgeInsets.all(20),
+                leading: const Icon(Icons.filter_list_alt),
+                title: const Text('Filters'),
+                childrenPadding: const EdgeInsets.all(20),
                 children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
