@@ -6,6 +6,7 @@ import 'package:petology/network/end_points.dart';
 import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/dio_helper.dart';
+import 'package:petology/screens/adoption_screen.dart';
 import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/screens/kind_screen.dart';
@@ -61,13 +62,13 @@ class Petology extends StatelessWidget {
             const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
           ],
         ),
-        //
         routes: {
           HelpScreen.routeName: (context) => HelpScreen(),
           KindScreen.routeName: (context) => const KindScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           SignupScreen.routeName: (context) => SignupScreen(),
           HomeLayout.routeName: (context) => HomeLayout(),
+          AdoptionScreen.routeName: (context) => AdoptionScreen(),
         },
         initialRoute:HomeLayout.routeName,
       ),

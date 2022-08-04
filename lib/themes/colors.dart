@@ -5,8 +5,9 @@ class AppColors {
   static const Color darkBrown = Color(0xFF492F24);
   static const Color medBrown = Color(0xffAE957B);
   static const Color lightBrown = Color(0xFFFFE3C5);
-  static const Color darkSilver = Color(0xFFB6B6B6);
-  static const Color lightSilver = Color(0xffC9C9C9);
+  static const Color darkGrey = Color(0xFFB6B6B6);
+  static const Color medGray = Color(0xffC9C9C9);
+  static const Color lightGrey = Color(0xFFEAEAEA);
 }
 
 MaterialColor buildMaterialColor(Color color) {

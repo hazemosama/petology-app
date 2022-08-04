@@ -4,7 +4,7 @@ import 'package:petology/widgets/default_form_field.dart';
 
 class HelpScreen extends StatelessWidget {
   HelpScreen({Key? key}) : super(key: key);
-  static const routeName = '/Help-screen';
+  static const routeName = '/help';
   var formKey = GlobalKey<FormState>();
   var categoryController = TextEditingController();
   var locationController = TextEditingController();

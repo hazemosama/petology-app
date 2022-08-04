@@ -10,7 +10,7 @@ import 'package:petology/widgets/default_form_field.dart';
 import '../themes/colors.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const routeName = '/login-screen';
+  static const routeName = '/login';
 
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();

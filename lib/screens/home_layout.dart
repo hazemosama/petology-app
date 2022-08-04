@@ -43,7 +43,7 @@ class HomeLayout extends StatelessWidget {
           body: appCubit.screens[appCubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: AppColors.darkBrown,
-            unselectedItemColor: AppColors.lightSilver,
+            unselectedItemColor: AppColors.medGray,
             currentIndex: appCubit.currentIndex,
             items: appCubit.navBarItems,
             onTap: (index) {

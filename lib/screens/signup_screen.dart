@@ -12,7 +12,7 @@ import 'package:petology/widgets/default_form_field.dart';
 import '../utils/app_constants.dart';
 
 class SignupScreen extends StatelessWidget {
-  static const routeName = '/sign-up-screen';
+  static const routeName = '/sign-up';
 
   var formKey = GlobalKey<FormState>();
   var firstNController = TextEditingController();
