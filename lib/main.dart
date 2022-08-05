@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/network/end_points.dart';
-import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/local/cache_helper.dart';
+import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/adoption_screen.dart';
 import 'package:petology/screens/help_screen.dart';
@@ -15,7 +15,10 @@ import 'package:petology/screens/signup_screen.dart';
 import 'package:petology/themes/themes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-void main() async {
+void main() async
+{
+
+
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

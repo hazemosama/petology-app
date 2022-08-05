@@ -1,3 +1,4 @@
+
 class SignUpModel {
   late final bool status;
   late final String message;
