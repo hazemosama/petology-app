@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
+import 'package:petology/models/pets_model.dart';
+import 'package:petology/network/end_points.dart';
+import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/home_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/request_Screen.dart';
@@ -44,5 +47,16 @@ class AppCubit extends Cubit<AppStates> {
   void changeIcon(index) {
     currentIndex = index;
     emit(ChangeIconState());
+  }
+  PetModel? petModel;
+  void getPets(){
+    emit(PetsLoadingsState());
+    DioHelper.getData(url:EndPoints.pets,token: token).then((value){
+      petModel=PetModel.fromJson(value.data);
+      print(petModel!.data.animals[0].name);
+      emit(PetsSuccessState());
+    }).catchError((error){
+      emit(PetsErrorState());
+    });
   }
 }

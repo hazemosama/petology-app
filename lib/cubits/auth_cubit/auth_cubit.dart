@@ -6,6 +6,7 @@ import 'package:petology/models/signup_model.dart';
 import 'package:petology/models/facebook_auth_model.dart';
 import 'package:petology/models/login_model.dart';
 import 'package:petology/network/end_points.dart';
+import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 
 part 'auth_states.dart';
@@ -96,24 +97,27 @@ class AuthCubit extends Cubit<AuthStates> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
+      print(value.data);
       emit(LoginSuccessState(loginModel!.data.access));
+      refreshToken=loginModel!.data.refresh;
     }).catchError((error) {
       print('error is الالا = ${error.toString()}');
       emit(LoginErrorState(error.toString()));
     });
   }
+  
 
 //--------------------signup with full data ------------------------//
   SignUpModel? signupModel;
 
-  void userSignup({
+  Future<void>userSignup({
     required String email,
     required String password,
     required String firstName,
     required String lastName,
     required String phoneNumber,
     required String country,
-  }) {
+  }) async {
     emit(SignupLoadingState());
     DioHelper.postData(
       url: EndPoints.signup,
@@ -130,8 +134,19 @@ class AuthCubit extends Cubit<AuthStates> {
       print(value.data);
       emit(SignupSuccessState(signupModel));
     }).catchError((error) {
+      postToken();
       print('error is = ${error.toString()}');
       emit(SignupErrorState(error.toString()));
+    });
+  }
+  void postToken(){
+    DioHelper.postData(url: '/accounts/api/token/refresh/', data: {
+      'refresh':refreshToken
+    }).then((value) {
+      loginModel=LoginModel.fromJson(value.data);
+      CacheHelper.saveData(key: 'token', value:loginModel!.data.access);
+      emit(PostSuccessState());
+      print(loginModel!.data.access);
     });
   }
 }

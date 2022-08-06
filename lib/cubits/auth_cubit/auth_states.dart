@@ -34,6 +34,7 @@ class LoginErrorState extends AuthStates {
 }
 
 class SignupLoadingState extends AuthStates {}
+class PostSuccessState extends AuthStates {}
 
 class SignupSuccessState extends AuthStates {
   final SignUpModel? model;

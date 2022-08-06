@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/network/end_points.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/block_observer.dart';
+import 'package:petology/network/remote/dd.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/adoption_screen.dart';
 import 'package:petology/screens/help_screen.dart';
@@ -28,8 +30,13 @@ void main() async
   );
   await CacheHelper.init();
   DioHelper.init();
-
   token = CacheHelper.getData(key: 'token') ?? '';
+  if (kDebugMode) {
+    print('access:$token');
+  }
+  if (kDebugMode) {
+    print('refresh:$refreshToken');
+  }
   BlocOverrides.runZoned(
     () {
       runApp(
@@ -48,7 +55,7 @@ class Petology extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AppCubit(),
+          create: (context) => AppCubit()..getPets(),
         )
       ],
       child: MaterialApp(
@@ -74,7 +81,8 @@ class Petology extends StatelessWidget {
           HomeLayout.routeName: (context) => const HomeLayout(),
           AdoptionScreen.routeName: (context) => AdoptionScreen(),
         },
-        initialRoute: HomeLayout.routeName,
+        initialRoute:token!=''? HomeLayout.routeName:LoginScreen.routeName,
+        //LoginScreen.routeName
       ),
     );
   }

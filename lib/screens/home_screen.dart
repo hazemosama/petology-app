@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:petology/cubits/app_cubit/app_cubit.dart';
+import 'package:petology/cubits/app_cubit/app_state.dart';
+import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
+import 'package:petology/network/end_points.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
-import 'package:petology/widgets/pet_container.dart';
+import 'package:petology/widgets/pet_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,7 +54,9 @@ class HomeScreen extends StatelessWidget {
                             height: 15,
                           ),
                           MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              signOut(context);
+                            },
                             height: 40,
                             minWidth: 80,
                             color: Colors.white,
@@ -120,16 +127,28 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 270,
-                  child: ListView.separated(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => const PetContainer(
-                        petName: 'caty', forHome: true,
-                      ),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 8,
-                      ),
-                      itemCount: 5),
+                  child: BlocConsumer<AppCubit, AppStates>(
+                    listener: (context, state) {
+                      if(state is PetsErrorState){
+                        AuthCubit.get(context).postToken();
+                      }
+                    },
+                    builder: (context, state) {
+                      var cubit=AppCubit.get(context).petModel;
+                      return ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) =>
+                           PetHome(
+                            petName: cubit!.data.animals[index].name, petImage:cubit.data.animals[index].image[0].imUrl ,
+                          ),
+                          separatorBuilder: (context, index) =>
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          itemCount: cubit!.data.animals.length);
+                    },
+                  ),
                 )
               ],
             ),

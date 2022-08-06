@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:petology/network/end_points.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/utils/app_constants.dart';
 import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
@@ -151,7 +152,9 @@ class LoginScreen extends StatelessWidget {
                                           padding:
                                               const EdgeInsets.only(right: 5.0),
                                           child: TextButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              signOut(context);
+                                            },
                                             child: Text(
                                               'Forget Password?',
                                               style: Theme.of(context)
