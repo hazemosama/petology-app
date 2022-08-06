@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:petology/network/end_points.dart';
+import 'package:petology/utils/app_constants.dart';
 
 class DioHelper {
   static Dio? dio;
@@ -9,7 +11,9 @@ class DioHelper {
           baseUrl: 'https://new-idea.herokuapp.com/',
           receiveDataWhenStatusError: true,
           validateStatus: (status) {
-            print('status code = ${status}');
+            if (status == 401 && token != '') {
+              AppConstants.refreshToken(refreshToken);
+            }
             return true;
           }),
     );
@@ -22,21 +26,22 @@ class DioHelper {
     dio!.options.headers = {
       'Authorization': 'Bearer $token',
     };
-
     return await dio!.get(
       url,
     );
-
-    print(dio!.interceptors.runtimeType.toString());
   }
 
   static Future<Response> postData({
     required String url,
     required Map<String, dynamic> data,
+    bool isAuth = false,
     String? token,
   }) async {
+    if (isAuth) {
+      token = 'Bearer $token';
+    }
     dio!.options.headers = {
-      'Authorization': 'Bearer $token',
+      'Authorization': '$token',
     };
     return await dio!.post(
       url,

@@ -8,6 +8,7 @@ import 'package:petology/screens/home_screen.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/request_Screen.dart';
 import 'package:petology/screens/services_screen.dart';
+import 'package:petology/utils/app_constants.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
@@ -47,15 +48,17 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeIconState());
   }
   PetModel? petModel;
-  void getPets(){
-    emit(PetsLoadingsState());
-    DioHelper.getData(url:EndPoints.pets,token: token).then((value){
-      petModel=PetModel.fromJson(value.data);
-      print(petModel!.data.animals[0].name);
-      emit(PetsSuccessState());
-    }).catchError((error){
-      print(error.toString());
-      emit(PetsErrorState());
+
+  void getPets() async {
+    AppConstants.refreshToken(refreshToken).then((value) {
+      emit(PetsLoadingsState());
+      DioHelper.getData(url:EndPoints.pets,token: token).then((value){
+        petModel=PetModel.fromJson(value.data);
+        emit(PetsSuccessState());
+      }).catchError((error){
+        emit(PetsErrorState());
+      });
+    }).catchError((error) {
     });
   }
 }

@@ -34,12 +34,11 @@ class AuthCubit extends Cubit<AuthStates> {
       data: {'auth_token': fbToken},
     ).then((value) {
       socialAuthModel = SocialAuthModel.fromJson(value.data);
-      emit(SocialLoginSuccessState(socialAuthModel!.data.access),);
+      emit(
+        SocialLoginSuccessState(socialAuthModel!.data.access),
+      );
     }).catchError((error) {
       emit(SocialLoginErrorState(error.toString()));
-      if (kDebugMode) {
-        print(error.toString());
-      }
     });
   }
 
@@ -51,7 +50,9 @@ class AuthCubit extends Cubit<AuthStates> {
         value!.authentication.then(
           (value) {
             googleAuth(value.idToken!);
-            print(value.idToken);
+            if (kDebugMode) {
+              print(value.idToken);
+            }
           },
         );
       },
@@ -72,16 +73,13 @@ class AuthCubit extends Cubit<AuthStates> {
     ).then((value) {
       socialAuthModel = SocialAuthModel.fromJson(value.data);
       emit(SocialLoginSuccessState(socialAuthModel!.data.access));
-      print(socialAuthModel!.data.access);
     }).catchError((error) {
       emit(SocialLoginErrorState(error.toString()));
-      if (kDebugMode) {
-        print(error.toString());
-      }
     });
   }
 
   //------------------Login with email-----------------------------//
+
   LoginModel? loginModel;
 
   void userLogin({
@@ -97,20 +95,21 @@ class AuthCubit extends Cubit<AuthStates> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
-      print(value.data);
+      token = loginModel!.data.access;
+      CacheHelper.saveData(
+          key: 'refresh_token', value: loginModel!.data.refresh);
+      refreshToken = loginModel!.data.refresh;
+
       emit(LoginSuccessState(loginModel!.data.access));
-      refreshToken=loginModel!.data.refresh;
     }).catchError((error) {
-      print('error is الالا = ${error.toString()}');
       emit(LoginErrorState(error.toString()));
     });
   }
-  
 
 //--------------------signup with full data ------------------------//
   SignUpModel? signupModel;
 
-  Future<void>userSignup({
+  Future<void> userSignup({
     required String email,
     required String password,
     required String firstName,
@@ -131,22 +130,9 @@ class AuthCubit extends Cubit<AuthStates> {
       },
     ).then((value) {
       signupModel = SignUpModel.fromJson(value.data);
-      print(value.data);
       emit(SignupSuccessState(signupModel));
     }).catchError((error) {
-      postToken();
-      print('error is = ${error.toString()}');
       emit(SignupErrorState(error.toString()));
-    });
-  }
-  void postToken(){
-    DioHelper.postData(url: '/accounts/api/token/refresh/', data: {
-      'refresh':refreshToken
-    }).then((value) {
-      loginModel=LoginModel.fromJson(value.data);
-      CacheHelper.saveData(key: 'token', value:loginModel!.data.access);
-      emit(PostSuccessState());
-      print(loginModel!.data.access);
     });
   }
 }

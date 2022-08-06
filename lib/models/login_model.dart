@@ -62,4 +62,5 @@ class Data {
     _data['refresh'] = refresh;
     return _data;
   }
+
 }

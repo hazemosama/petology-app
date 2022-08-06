@@ -30,6 +30,7 @@ void main() async
   await CacheHelper.init();
   DioHelper.init();
   token = CacheHelper.getData(key: 'token') ?? '';
+  refreshToken = CacheHelper.getData(key: 'refresh_token') ?? '';
 
   if (kDebugMode) {
     print('access:$token');

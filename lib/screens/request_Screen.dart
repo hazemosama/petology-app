@@ -6,13 +6,13 @@ import 'package:petology/widgets/default_form_field.dart';
 
 class RequestScreen extends StatelessWidget {
   RequestScreen({Key? key}) : super(key: key);
+
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var locationController = TextEditingController();
   var phoneController = TextEditingController();
-  final List<String> genderItems = ['cat', 'dog', 'شخة'];
+  final List<String> genderItems = ['cat', 'dog'];
 
-  //DefaultDropDownMenu(items: genderItems),
   @override
   Widget build(BuildContext context) {
     return Scaffold(

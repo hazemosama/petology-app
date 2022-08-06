@@ -1,9 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
-import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
 import 'package:petology/network/end_points.dart';
+import 'package:petology/screens/pet_details_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/pet_home.dart';
@@ -128,28 +129,43 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 270,
                   child: BlocConsumer<AppCubit, AppStates>(
-                    listener: (context, state) {
-                      if(state is PetsErrorState){
-                        AuthCubit.get(context).postToken();
-                      }
-                    },
+                    listener: (context, state) {},
                     builder: (context, state) {
-                      var cubit=AppCubit.get(context).petModel;
-                      return ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) =>
-                           PetHome(
-                            petName: cubit!.data.animals[index].name, petImage:cubit.data.animals[index].image[0].imUrl ,
-                          ),
-                          separatorBuilder: (context, index) =>
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          itemCount: cubit!.data.animals.length);
+                      var petModel = AppCubit.get(context).petModel;
+
+                      return ConditionalBuilder(
+                        condition: petModel != null,
+                        builder: (context) => ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PetDetailsScreen(
+                                          pet: petModel!.data.animals[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: PetHome(
+                                    petName: petModel!.data.animals[index].name,
+                                    petImage: petModel
+                                        .data.animals[index].image[0].imUrl,
+                                  ),
+                                ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                            itemCount: petModel!.data.animals.length),
+                        fallback: (context) =>
+                            const Center(child: CircularProgressIndicator()),
+                      );
                     },
                   ),
-                )
+                ),
               ],
             ),
           )
