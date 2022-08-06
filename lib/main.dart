@@ -6,7 +6,6 @@ import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/network/end_points.dart';
 import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/block_observer.dart';
-import 'package:petology/network/remote/dd.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/adoption_screen.dart';
 import 'package:petology/screens/help_screen.dart';
@@ -31,6 +30,7 @@ void main() async
   await CacheHelper.init();
   DioHelper.init();
   token = CacheHelper.getData(key: 'token') ?? '';
+
   if (kDebugMode) {
     print('access:$token');
   }

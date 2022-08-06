@@ -20,7 +20,6 @@ class HomeLayout extends StatelessWidget {
       builder: (context, state) {
         final AppCubit appCubit = AppCubit.get(context);
         return Scaffold(
-          key: appCubit.homeKey,
           drawer: const AppDrawer(),
           appBar: AppBar(
             elevation: 0.0,

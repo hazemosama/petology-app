@@ -1,21 +1,18 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:petology/network/end_points.dart';
 
 class DioHelper {
-
   static Dio? dio;
 
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://new-idea.herokuapp.com/',
-        receiveDataWhenStatusError: true,
-      ),
-
+          baseUrl: 'https://new-idea.herokuapp.com/',
+          receiveDataWhenStatusError: true,
+          validateStatus: (status) {
+            print('status code = ${status}');
+            return true;
+          }),
     );
-
   }
 
   static Future<Response> getData({
@@ -29,6 +26,8 @@ class DioHelper {
     return await dio!.get(
       url,
     );
+
+    print(dio!.interceptors.runtimeType.toString());
   }
 
   static Future<Response> postData({
@@ -37,7 +36,7 @@ class DioHelper {
     String? token,
   }) async {
     dio!.options.headers = {
-      'Authorization': '$token',
+      'Authorization': 'Bearer $token',
     };
     return await dio!.post(
       url,

@@ -42,8 +42,6 @@ class AppCubit extends Cubit<AppStates> {
     ),
   ];
 
-  GlobalKey<ScaffoldState> homeKey = GlobalKey();
-
   void changeIcon(index) {
     currentIndex = index;
     emit(ChangeIconState());
@@ -56,6 +54,7 @@ class AppCubit extends Cubit<AppStates> {
       print(petModel!.data.animals[0].name);
       emit(PetsSuccessState());
     }).catchError((error){
+      print(error.toString());
       emit(PetsErrorState());
     });
   }
