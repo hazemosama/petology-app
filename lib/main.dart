@@ -16,6 +16,8 @@ import 'package:petology/screens/signup_screen.dart';
 import 'package:petology/themes/themes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'screens/profile_screen.dart';
+
 void main() async
 {
 
@@ -81,8 +83,9 @@ class Petology extends StatelessWidget {
           SignupScreen.routeName: (context) => SignupScreen(),
           HomeLayout.routeName: (context) => const HomeLayout(),
           AdoptionScreen.routeName: (context) => AdoptionScreen(),
+          ProfileScreen.routeName: (context) => ProfileScreen(),
         },
-        initialRoute:token!=''? HomeLayout.routeName:LoginScreen.routeName,
+        initialRoute:token!=''? ProfileScreen.routeName:LoginScreen.routeName,
         //LoginScreen.routeName
       ),
     );
