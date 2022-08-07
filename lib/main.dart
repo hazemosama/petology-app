@@ -12,6 +12,7 @@ import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/login_screen.dart';
+import 'package:petology/screens/pet_details_screen.dart';
 import 'package:petology/screens/signup_screen.dart';
 import 'package:petology/themes/themes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -27,6 +28,7 @@ void main() async
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
+
     ),
   );
   await CacheHelper.init();
@@ -76,6 +78,7 @@ class Petology extends StatelessWidget {
             const ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
           ],
         ),
+
         routes: {
           HelpScreen.routeName: (context) => HelpScreen(),
           KindScreen.routeName: (context) => const KindScreen(),
@@ -84,8 +87,9 @@ class Petology extends StatelessWidget {
           HomeLayout.routeName: (context) => const HomeLayout(),
           AdoptionScreen.routeName: (context) => AdoptionScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
+          PetDetailsScreen.routeName: (context) => const PetDetailsScreen(),
         },
-        initialRoute:token!=''? HomeLayout.routeName:LoginScreen.routeName,
+        initialRoute: token!=''? HomeLayout.routeName:LoginScreen.routeName,
         //LoginScreen.routeName
       ),
     );

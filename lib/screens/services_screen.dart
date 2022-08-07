@@ -19,9 +19,10 @@ class ServicesScreen extends StatelessWidget {
           children: <Widget>[
             const TextWithBackground(
               text: 'How to take care of your friends?',
+              fontSize: 22,
             ),
             const SizedBox(
-              height: 22,
+              height: 15,
             ),
             ListView.separated(
               shrinkWrap: true,
@@ -37,8 +38,8 @@ class ServicesScreen extends StatelessWidget {
                           onTap: () {
                           },
                           child: Container(
-                            height: 165,
-                            width: 126,
+                            height: 125,
+                            width: 105,
                             padding: const EdgeInsets.symmetric(
                               vertical: 12.0,
                             ),
@@ -57,8 +58,8 @@ class ServicesScreen extends StatelessWidget {
                                   image: AssetImage(
                                     ImageAssets.kindDog,
                                   ),
-                                  width: 90.0,
-                                  height: 90.0,
+                                  width: 60.0,
+                                  height: 60.0,
                                 ),
                                 SizedBox(
                                   height: 15.0,
@@ -66,7 +67,7 @@ class ServicesScreen extends StatelessWidget {
                                 Text(
                                   'Dogs',
                                   style: TextStyle(
-                                    fontSize: 25.0,
+                                    fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -78,8 +79,8 @@ class ServicesScreen extends StatelessWidget {
                           onTap: () {
                           },
                           child: Container(
-                            height: 165,
-                            width: 126,
+                            height: 125,
+                            width: 105,
                             padding: const EdgeInsets.symmetric(
                               vertical: 12.0,
                             ),
@@ -96,8 +97,8 @@ class ServicesScreen extends StatelessWidget {
                               children: const [
                                 Image(
                                   image: AssetImage('assets/images/cat.png'),
-                                  width: 90.0,
-                                  height: 90.0,
+                                  width: 60.0,
+                                  height: 60.0,
                                 ),
                                 SizedBox(
                                   height: 15.0,
@@ -105,7 +106,7 @@ class ServicesScreen extends StatelessWidget {
                                 Text(
                                   'Cats',
                                   style: TextStyle(
-                                    fontSize: 25.0,
+                                    fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

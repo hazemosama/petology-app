@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
   static const String routeName = '/profile';
-  var formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -25,12 +25,11 @@ class ProfileScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = AppCubit.get(context);
         var user = cubit.userModel!.data;
-
         firstNameController.text = user.firstName;
         lastNameController.text = user.lastName;
         emailController.text = user.email;
-        phoneController.text = user.phoneNumber;
-        countryController.text = user.country;
+        phoneController.text = user.phoneNumber?? 'no phone number';
+        countryController.text = user.country?? 'no country';
         return Scaffold(
           appBar: AppBar(
             elevation: 0.0,
@@ -91,11 +90,11 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 Center(
                                   child: Column(
-                                    children:  [
+                                    children: [
                                       if (state is LoadingUpdateUserState)
                                         const LinearProgressIndicator(),
                                       Text(
-                                        '${cubit.userModel!.data.firstName}',
+                                        cubit.userModel!.data.firstName,
                                         style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -104,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         '@ ${cubit.userModel!.data.firstName}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.darkBrown,
                                         ),
@@ -191,11 +190,14 @@ class ProfileScreen extends StatelessWidget {
                             color: AppColors.darkBrown,
                             onPressed: () {
                               AppCubit.get(context).updateUserData(
-                                  firstname: firstNameController.text,
-                                  lastname: lastNameController.text,
-                                  email: emailController.text,
-                                  phoneNumber: phoneController.text,
-                                  country: countryController.text);
+                                firstname: firstNameController.text,
+                                lastname: lastNameController.text,
+                                email: emailController.text,
+                                phoneNumber: phoneController.text,
+                                country: countryController.text,
+                              ).then((value) {
+                                AppCubit.get(context).getUserData();
+                              });
                             },
                             minWidth: 170.0,
                             child: const Text('Update'),

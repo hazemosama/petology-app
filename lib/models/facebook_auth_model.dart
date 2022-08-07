@@ -38,7 +38,7 @@ class Data {
   late final String lastName;
   late final String email;
   late final dynamic country;
-  late final String phoneNumber;
+  late final dynamic phoneNumber;
   late final String access;
   late final String refresh;
 

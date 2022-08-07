@@ -17,10 +17,13 @@ class TextWithBackground extends StatelessWidget {
     return Stack(
       alignment: Alignment.centerRight,
       children: [
-        Image.asset(
-          ImageAssets.foot,
-          height: 60.0,
-          width: 60.0,
+        Transform.translate(
+          offset: const Offset(15,0),
+          child: Image.asset(
+            ImageAssets.foot,
+            height: 60.0,
+            width: 60.0,
+          ),
         ),
         Text(
           text,

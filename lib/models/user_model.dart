@@ -34,8 +34,8 @@ class Data {
   late final String firstName;
   late final String lastName;
   late final String email;
-  late final String phoneNumber;
-  late final String country;
+  late final dynamic phoneNumber;
+  late final dynamic country;
 
   Data.fromJson(Map<String, dynamic> json){
     firstName = json['first_name'];

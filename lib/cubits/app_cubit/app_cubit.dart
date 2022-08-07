@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
@@ -55,50 +56,60 @@ class AppCubit extends Cubit<AppStates> {
       emit(PetsLoadingsState());
       DioHelper.getData(url:EndPoints.pets,token: token).then((value){
         petModel=PetModel.fromJson(value.data);
+        if (kDebugMode) {
+          print(value.data);
+        }
         emit(PetsSuccessState());
       }).catchError((error){
+        if (kDebugMode) {
+          print('get pets error is ${error.toString()}');
+        }
         emit(PetsErrorState());
       });
     }).catchError((error) {
     });
   }
+
   //--------------get user info--------------//
   UserModel? userModel;
-  void getUserData() {
+  Future<void> getUserData() async {
     emit(LoadingUserInfoState());
     DioHelper.getData(
       url: EndPoints.userInfo,
       token: token,
     ).then((value) {
       userModel = UserModel.fromJson(value.data);
-      print(value.data);
+      print('get user data is ${value.data}');
       emit(SuccessUserInfoState(userModel!));
     }).catchError((error) {
-      print(error.toString());
+      print('get user data error is: ${error.toString()}');
       emit(ErrorUserInfoState(error.toString()));
     });
   }
 
 //--------------update user info--------------//
-  void updateUserData({
+  Future<void> updateUserData({
     required String firstname,
     required String lastname,
     required String email,
     required String phoneNumber,
     required String country,
-  }) {
+  }) async {
     emit(LoadingUpdateUserState());
-    DioHelper.putData(url: EndPoints.userInfo, token: token, data: {
+    await DioHelper.putData(url: EndPoints.userInfo, token: token, data: {
       'first_name': firstname,
       'last_name': lastname,
       'email': email,
       'phoneNumber': phoneNumber,
       'country': country,
     }).then((value) {
-      userModel = UserModel.fromJson(value.data);
+      print(value.data);
+      // userModel = UserModel.fromJson(value.data);
       emit(SuccessUpdateUserState(userModel!));
     }).catchError((error) {
-      print(error.toString());
+      if (kDebugMode) {
+        print('update user error is: ${error.toString()}');
+      }
       emit(ErrorUpdateUserState(error.toString()));
     });
   }

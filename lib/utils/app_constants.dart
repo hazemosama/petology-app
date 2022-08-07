@@ -51,7 +51,8 @@ class AppConstants {
         title: Text(
           text!,
           style: const TextStyle(
-            fontSize: 16.0,
+            fontSize: 15.7,
+            fontWeight: FontWeight.bold,
           ),
         ),
         content: content,

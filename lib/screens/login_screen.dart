@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
+import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
 import 'package:petology/network/end_points.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/utils/app_constants.dart';
-import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
-import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/default_form_field.dart';
+
 import '../themes/colors.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,15 +31,10 @@ class LoginScreen extends StatelessWidget {
                 context: context,
                 content: const LinearProgressIndicator(),
                 text: 'Logging in, please wait');
-          } else if (state is SocialLoginSuccessState) {
-            CacheHelper.saveData(key: 'token', value: state.token)
-                .then((value) {
+          } else if (state is SocialLoginSuccessState || state is LoginSuccessState) {
+            AppCubit.get(context).getUserData().then((value) {
               Navigator.pushNamed(context, HomeLayout.routeName);
             });
-          } else if (state is LoginSuccessState) {
-            AppCubit.get(context).getUserData();
-            CacheHelper.saveData(key: 'token', value: state.token);
-            Navigator.pushNamed(context, HomeLayout.routeName);
           }
         },
         builder: (context, state) {

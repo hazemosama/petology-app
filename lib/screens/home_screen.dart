@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
-import 'package:petology/network/end_points.dart';
+import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/pet_details_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Container(
                 color: AppColors.darkBrown,
-                height: 250,
+                height: 270,
                 width: double.infinity,
               ),
               Row(
@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                             height: 8,
                           ),
                           const Text(
-                            'Not only people need a house Not only people need a house Not only people need a house Not only people need a house',
+                            'There are friends of ours named pets, When you adopt, you support a worthy cause and help diminish the overpopulation of animals. ',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
@@ -56,7 +56,10 @@ class HomeScreen extends StatelessWidget {
                           ),
                           MaterialButton(
                             onPressed: () {
-                              signOut(context);
+                              Navigator.pushNamed(
+                                context,
+                                HelpScreen.routeName,
+                              );
                             },
                             height: 40,
                             minWidth: 80,
@@ -106,6 +109,9 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
+                const SizedBox(
+                  height: 15.0,
+                ),
                 Stack(
                   children: [
                     Padding(
@@ -132,29 +138,18 @@ class HomeScreen extends StatelessWidget {
                     listener: (context, state) {},
                     builder: (context, state) {
                       var petModel = AppCubit.get(context).petModel;
-
                       return ConditionalBuilder(
                         condition: petModel != null,
                         builder: (context) => ListView.separated(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PetDetailsScreen(
-                                          pet: petModel!.data.animals[index],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: PetHome(
-                                    petName: petModel!.data.animals[index].name,
-                                    petImage: petModel
-                                        .data.animals[index].image[0].imUrl,
-                                  ),
-                                ),
+                            itemBuilder: (context, index) => PetHome(
+                              petName: petModel!.data.animals[index].name,
+                              petImage: petModel
+                                  .data.animals[index].image[0].imUrl,
+                              petModel: petModel,
+                              index: index,
+                            ),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(
                                   width: 8,

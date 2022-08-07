@@ -35,7 +35,8 @@ class AuthCubit extends Cubit<AuthStates> {
     ).then((value) {
       socialAuthModel = SocialAuthModel.fromJson(value.data);
       emit(
-        SocialLoginSuccessState(socialAuthModel!.data.access),
+        SocialLoginSuccessState(
+            socialAuthModel!.data.access, socialAuthModel!.data.refresh),
       );
     }).catchError((error) {
       emit(SocialLoginErrorState(error.toString()));
@@ -72,8 +73,14 @@ class AuthCubit extends Cubit<AuthStates> {
       data: {'auth_token': googleToken},
     ).then((value) {
       socialAuthModel = SocialAuthModel.fromJson(value.data);
-      emit(SocialLoginSuccessState(socialAuthModel!.data.access));
+      emit(SocialLoginSuccessState(
+          socialAuthModel!.data.access, socialAuthModel!.data.refresh));
+      token = socialAuthModel!.data.access;
+      refreshToken = socialAuthModel!.data.refresh;
+      CacheHelper.saveData(key: 'token', value: socialAuthModel!.data.access);
+      CacheHelper.saveData(key: 'refresh_token', value: socialAuthModel!.data.refresh);
     }).catchError((error) {
+      print('google auth error is:  ${error.toString()}');
       emit(SocialLoginErrorState(error.toString()));
     });
   }
@@ -95,12 +102,12 @@ class AuthCubit extends Cubit<AuthStates> {
       },
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);
+      emit(LoginSuccessState(loginModel!.data.access));
       token = loginModel!.data.access;
+      refreshToken = loginModel!.data.refresh;
+      CacheHelper.saveData(key: 'token', value: loginModel!.data.access);
       CacheHelper.saveData(
           key: 'refresh_token', value: loginModel!.data.refresh);
-      refreshToken = loginModel!.data.refresh;
-
-      emit(LoginSuccessState(loginModel!.data.access));
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
     });

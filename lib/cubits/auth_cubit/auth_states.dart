@@ -9,8 +9,9 @@ class SocialLoginLoadingState extends AuthStates {}
 
 class SocialLoginSuccessState extends AuthStates {
   final String? token;
+  final String? refreshToken;
 
-  SocialLoginSuccessState(this.token);
+  SocialLoginSuccessState(this.token, this.refreshToken);
 }
 
 class SocialLoginErrorState extends AuthStates {
