@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/themes/colors.dart';
-
+import 'package:petology/utils/assets_manager.dart';
 
 class ProfileScreen extends StatelessWidget {
-
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController dateOfBirthController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-
   ProfileScreen({Key? key}) : super(key: key);
 
   static const String routeName = '/profile';
-
+  var formKey = GlobalKey<FormState>();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +24,13 @@ class ProfileScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = AppCubit.get(context);
-        // var user = cubit.getProfileModel!.data;
+        var user = cubit.userModel!.data;
 
-        // firstNameController.text = user.firstName.capitalize();
-        // lastNameController.text = user.lastName.capitalize();
-        // nameController.text = user.username;
-        // dateOfBirthController.text = user.dateOfBirth;
-        // genderController.text = user.gender;
-        // phoneController.text = user.phone;
-        // countryController.text = user.country;
-        // emailController.text = user.email;
+        firstNameController.text = user.firstName;
+        lastNameController.text = user.lastName;
+        emailController.text = user.email;
+        phoneController.text = user.phoneNumber;
+        countryController.text = user.country;
         return Scaffold(
           appBar: AppBar(
             elevation: 0.0,
@@ -46,12 +38,13 @@ class ProfileScreen extends StatelessWidget {
                 statusBarColor: AppColors.darkBrown,
                 statusBarIconBrightness: Brightness.light),
             backgroundColor: AppColors.darkBrown,
-            centerTitle: true,
-            title: const Text(
-              'Profile',
-              style: TextStyle(
-                fontSize: 17.5,
-              ),
+            title: Row(
+              children: [
+                SvgPicture.asset(
+                  ImageAssets.logo,
+                  height: 30.0,
+                ),
+              ],
             ),
           ),
           body: Stack(
@@ -59,24 +52,23 @@ class ProfileScreen extends StatelessWidget {
               Column(
                 children: [
                   Expanded(
+                    flex: 1,
                     child: Container(
                       width: double.infinity,
                       color: AppColors.darkBrown,
                     ),
-                    flex: 1,
                   ),
                   Expanded(
+                    flex: 4,
                     child: Container(
                       width: double.infinity,
-                      color: AppColors.lightBrown,
                     ),
-                    flex: 4,
                   ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 50.0,
+                  top: 60.0,
                   right: 20.0,
                   left: 20.0,
                 ),
@@ -84,38 +76,34 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Card(
-                        color: Colors.white,
-                        child: Padding(
-                            padding: EdgeInsets.all(12.0),
+                      Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Form(
+                            key: formKey,
                             child: Column(
                               children: [
-                                CircleAvatar(
+                                const CircleAvatar(
                                   radius: 55.0,
-                                  backgroundImage: true
-                                      ? AssetImage(
-                                    'assets/images/male.png',
-                                  )
-                                      : AssetImage(
-                                    'assets/images/female.png',
-                                  ),
+                                  backgroundColor: Colors.white,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5.0,
                                 ),
                                 Center(
                                   child: Column(
-                                    children: [
+                                    children:  [
+                                      if (state is LoadingUpdateUserState)
+                                        const LinearProgressIndicator(),
                                       Text(
-                                        'hazem',
-                                        style: TextStyle(
+                                        '${cubit.userModel!.data.firstName}',
+                                        style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.darkBrown,
                                         ),
                                       ),
                                       Text(
-                                        'hazemosama',
+                                        '@ ${cubit.userModel!.data.firstName}',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.darkBrown,
@@ -125,62 +113,27 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 )
                               ],
-                            )),
-                      ),
-                      SizedBox(
-                        height: 15.0,
+                            ),
+                          )),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Row(
                         children: [
                           UserDataField(
                             controller: firstNameController,
                             icon: Icons.person_rounded,
-                            width: 150,
+                            width: 160,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           UserDataField(
                             controller: lastNameController,
                             icon: Icons.person_rounded,
-                            width: 150,
+                            width: 160,
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      UserDataField(
-                        controller: nameController,
-                        icon: Icons.account_circle_rounded,
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      UserDataField(
-                        icon: Icons.cake_rounded,
-                        controller: dateOfBirthController,
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      UserDataField(
-                        icon: Icons.male_rounded,
-                        controller: genderController,
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      UserDataField(
-                        icon: Icons.phone_rounded,
-                        controller: phoneController,
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      UserDataField(
-                        icon: Icons.language_rounded,
-                        controller: countryController,
-                      ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                       UserDataField(
@@ -188,8 +141,22 @@ class ProfileScreen extends StatelessWidget {
                         icon: Icons.email_rounded,
                         readOnly: true,
                       ),
-                      SizedBox(
-                        height: 35.0,
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      UserDataField(
+                        icon: Icons.phone_rounded,
+                        controller: phoneController,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      UserDataField(
+                        icon: Icons.language_rounded,
+                        controller: countryController,
+                      ),
+                      const SizedBox(
+                        height: 20.0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -199,8 +166,10 @@ class ProfileScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12)),
                             textColor: Colors.white,
                             color: AppColors.darkBrown,
+                            onPressed: () {},
+                            minWidth: 170.0,
                             child: Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.lock_rounded,
                                   size: 19.5,
@@ -213,19 +182,23 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            onPressed: () {
-                            },
-                            minWidth: 170.0,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           MaterialButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
                             textColor: Colors.white,
                             color: AppColors.darkBrown,
-                            child: Text('Update'),
-                            onPressed: () {},
+                            onPressed: () {
+                              AppCubit.get(context).updateUserData(
+                                  firstname: firstNameController.text,
+                                  lastname: lastNameController.text,
+                                  email: emailController.text,
+                                  phoneNumber: phoneController.text,
+                                  country: countryController.text);
+                            },
                             minWidth: 170.0,
+                            child: const Text('Update'),
                           ),
                         ],
                       ),
@@ -239,7 +212,6 @@ class ProfileScreen extends StatelessWidget {
       },
     );
   }
-
 
   Widget UserDataField({
     required IconData icon,
@@ -258,7 +230,7 @@ class ProfileScreen extends StatelessWidget {
           readOnly: readOnly,
           controller: controller,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.all(10),
             border: InputBorder.none,
             prefixIcon: Icon(
               icon,

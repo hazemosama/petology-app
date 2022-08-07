@@ -58,7 +58,7 @@ class Petology extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AppCubit()..getPets(),
+          create: (context) => AppCubit()..getPets()..getUserData(),
         )
       ],
       child: MaterialApp(
@@ -85,7 +85,7 @@ class Petology extends StatelessWidget {
           AdoptionScreen.routeName: (context) => AdoptionScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
         },
-        initialRoute:token!=''? ProfileScreen.routeName:LoginScreen.routeName,
+        initialRoute:token!=''? HomeLayout.routeName:LoginScreen.routeName,
         //LoginScreen.routeName
       ),
     );

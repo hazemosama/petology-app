@@ -8,6 +8,8 @@ class EndPoints {
   static const String login = '/accounts/auth/login/';
   static const String pets = '/event/animal/';
   static const String refresh = 'accounts/api/token/refresh/';
+  static const String userInfo = '/event/profile/';
+
 }
 String token='';
 String refreshToken='';

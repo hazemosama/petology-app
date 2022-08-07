@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/models/pets_model.dart';
+import 'package:petology/models/user_model.dart';
 import 'package:petology/network/end_points.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/home_screen.dart';
@@ -59,6 +60,46 @@ class AppCubit extends Cubit<AppStates> {
         emit(PetsErrorState());
       });
     }).catchError((error) {
+    });
+  }
+  //--------------get user info--------------//
+  UserModel? userModel;
+  void getUserData() {
+    emit(LoadingUserInfoState());
+    DioHelper.getData(
+      url: EndPoints.userInfo,
+      token: token,
+    ).then((value) {
+      userModel = UserModel.fromJson(value.data);
+      print(value.data);
+      emit(SuccessUserInfoState(userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorUserInfoState(error.toString()));
+    });
+  }
+
+//--------------update user info--------------//
+  void updateUserData({
+    required String firstname,
+    required String lastname,
+    required String email,
+    required String phoneNumber,
+    required String country,
+  }) {
+    emit(LoadingUpdateUserState());
+    DioHelper.putData(url: EndPoints.userInfo, token: token, data: {
+      'first_name': firstname,
+      'last_name': lastname,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'country': country,
+    }).then((value) {
+      userModel = UserModel.fromJson(value.data);
+      emit(SuccessUpdateUserState(userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorUpdateUserState(error.toString()));
     });
   }
 }

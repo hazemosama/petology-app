@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/network/end_points.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/utils/app_constants.dart';
@@ -36,6 +37,7 @@ class LoginScreen extends StatelessWidget {
               Navigator.pushNamed(context, HomeLayout.routeName);
             });
           } else if (state is LoginSuccessState) {
+            AppCubit.get(context).getUserData();
             CacheHelper.saveData(key: 'token', value: state.token);
             Navigator.pushNamed(context, HomeLayout.routeName);
           }
