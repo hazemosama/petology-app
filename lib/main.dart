@@ -38,10 +38,9 @@ void main() async
 
   if (kDebugMode) {
     print('access:$token');
-  }
-  if (kDebugMode) {
     print('refresh:$refreshToken');
   }
+
   BlocOverrides.runZoned(
     () {
       runApp(

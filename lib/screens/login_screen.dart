@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                 text: 'Logging in, please wait');
           } else if (state is SocialLoginSuccessState || state is LoginSuccessState) {
             AppCubit.get(context).getUserData().then((value) {
-              Navigator.pushNamed(context, HomeLayout.routeName);
+              Navigator.pushReplacementNamed(context, HomeLayout.routeName);
             });
           }
         },
