@@ -230,7 +230,7 @@ class RequestScreen extends StatelessWidget {
                                   suffix: Icons.location_on,
                                   color: AppColors.darkBrown,
                                   suffixPressed: () {
-                                    AppCubit.get(context).determinePosition();
+                                    AppCubit.get(context).getAddressFromLatLong();
                                   },
                                   validate: (String? value) {
                                     if (value!.isEmpty) {

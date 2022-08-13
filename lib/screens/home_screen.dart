@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
+import 'package:petology/screens/help_screen.dart';
+import 'package:petology/screens/pet_details_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 import 'package:petology/widgets/pet_home.dart';
@@ -53,7 +55,12 @@ class HomeScreen extends StatelessWidget {
                             height: 15,
                           ),
                           MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                HelpScreen.routeName,
+                              );
+                            },
                             height: 40,
                             minWidth: 80,
                             color: Colors.white,

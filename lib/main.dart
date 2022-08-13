@@ -9,6 +9,7 @@ import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/adoption_screen.dart';
+import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/login_screen.dart';
@@ -84,6 +85,7 @@ class Petology extends StatelessWidget {
           AdoptionScreen.routeName: (context) => AdoptionScreen(),
           ProfileScreen.routeName: (context) => ProfileScreen(),
           PetDetailsScreen.routeName: (context) => const PetDetailsScreen(),
+          HelpScreen.routeName: (context) => HelpScreen(),
         },
         initialRoute:
             token != '' ? HomeLayout.routeName : LoginScreen.routeName,

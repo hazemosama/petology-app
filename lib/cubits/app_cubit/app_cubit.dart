@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
@@ -178,6 +179,19 @@ class AppCubit extends Cubit<AppStates> {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    return await Geolocator.getCurrentPosition();
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  }
+  Position? position;
+
+  String address ='';
+
+  Future<void> getAddressFromLatLong()async {
+    position = await determinePosition();
+    print(position);
+    List<Placemark> placemarks = await placemarkFromCoordinates(position!.latitude, position!.longitude);
+    print(placemarks);
+    Placemark place = placemarks[0];
+    address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+    print(address);
   }
 }
