@@ -14,76 +14,13 @@ class RequestScreen extends StatelessWidget {
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var descriptionController = TextEditingController();
-
-  final List<String> categoryItems = [
-    'cat',
-    'dog',
-  ];
-  final List<String> ageItems = [
-    "0-2 months",
-    "3-4 months",
-    "5-6 months",
-    "7-8 months",
-    "9-10 months",
-    "10-12 months",
-    "1-2 years",
-    "3-5 years",
-    "6-8 years",
-    "9+ years",
-  ];
-
-  final List<String> sizeItems = [
-    'Small',
-    'Medium',
-    'Large',
-  ];
-
-  final List<String> breedItems = [
-    "Aegean",
-    "American Bobtail",
-    "Australian Mist",
-    "Burmilla",
-    "Chartreux",
-    "Dogo",
-    "German Shepherd",
-    "Great Dane",
-    "Kangal",
-    "Pitbull",
-  ];
-
-  final List<String> genderItems = [
-    'Male',
-    'Female',
-  ];
-
-  final List<String> houseTrainedItems = [
-    'Yes',
-    'No',
-  ];
-
-  final List<String> hairLengthItems = [
-    "short",
-    "medium",
-    "tall",
-  ];
-  final List<String> vaccinatedItems = [
-    'Yes',
-    'No',
-  ];
-  final List<String> colorItems = [
-    "yellow",
-    "orange",
-    "Antique bronze",
-    "Artichoke green",
-    "Black olive",
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
+          AppCubit cubit = AppCubit.get(context);
           return Stack(
             children: [
               Image.asset(
@@ -145,22 +82,22 @@ class RequestScreen extends StatelessWidget {
                               },
                             ),
                             const SizedBox(height: 15),
-                            DefaultDropDownMenu(
+                            DropDownContainer(
                               hint: 'Category',
-                              items: categoryItems,
+                              items: cubit.categoryItems,
                             ),
                             const SizedBox(height: 15),
                             Row(
                               children: [
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Age',
-                                  items: ageItems,
+                                  items: cubit.ageItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Size',
-                                  items: sizeItems,
+                                  items: cubit.sizeItems,
                                   width: 140,
                                 ),
                               ],
@@ -168,15 +105,15 @@ class RequestScreen extends StatelessWidget {
                             const SizedBox(height: 15),
                             Row(
                               children: [
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Breed',
-                                  items: breedItems,
+                                  items: cubit.breedItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Gender',
-                                  items: genderItems,
+                                  items: cubit.genderItems,
                                   width: 140,
                                 ),
                               ],
@@ -184,15 +121,15 @@ class RequestScreen extends StatelessWidget {
                             const SizedBox(height: 15),
                             Row(
                               children: [
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'House Trained',
-                                  items: houseTrainedItems,
+                                  items: cubit.houseTrainedItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Hair Length',
-                                  items: hairLengthItems,
+                                  items: cubit.hairLengthItems,
                                   width: 140,
                                 ),
                               ],
@@ -200,16 +137,17 @@ class RequestScreen extends StatelessWidget {
                             const SizedBox(height: 15),
                             Row(
                               children: [
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Vaccinated',
-                                  items: vaccinatedItems,
+                                  items: cubit.vaccinatedItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
-                                DefaultDropDownMenu(
+                                DropDownContainer(
                                   hint: 'Color',
-                                  items: colorItems,
+                                  items: cubit.colorItems,
                                   width: 140,
+
                                 ),
                               ],
                             ),

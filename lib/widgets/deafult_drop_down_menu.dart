@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/themes/colors.dart';
 
-class DefaultDropDownMenu extends StatelessWidget {
-
-  const DefaultDropDownMenu({
+class DropDownContainer extends StatelessWidget {
+  DropDownContainer({
     Key? key,
     required this.items,
     this.width,
     this.hint,
-
+    this.controller,
+    this.method,
   }) : super(key: key);
   final String? hint;
   final double? width;
   final List<String> items;
+  TextEditingController? controller;
+  VoidCallback? method;
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +31,29 @@ class DefaultDropDownMenu extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: DropdownButtonFormField(
             isExpanded: true,
-            decoration:InputDecoration(
-                border: InputBorder.none,
+            decoration: InputDecoration(
+              border: InputBorder.none,
               hintText: hint,
               hintStyle: const TextStyle(
                 color: AppColors.medBrown,
               ),
             ),
-            onChanged: (value) {
+            onChanged: (String? value) {
+              controller!.text = value!;
               print(value);
+              print(controller!.text);
+              print('cubit controller is: ${AppCubit.get(context).sizeController.text}');
             },
             items: items
                 .map((item) => DropdownMenuItem<String>(
-              value: item,
-              child: Text(
-                item,
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ))
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ))
                 .toList(),
           ),
         ),

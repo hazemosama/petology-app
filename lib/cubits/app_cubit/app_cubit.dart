@@ -17,6 +17,8 @@ import 'package:petology/screens/request_Screen.dart';
 import 'package:petology/screens/services_screen.dart';
 import 'package:petology/utils/app_constants.dart';
 
+import '../../models/filter_model.dart';
+
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
 
@@ -54,29 +56,30 @@ class AppCubit extends Cubit<AppStates> {
     currentIndex = index;
     emit(ChangeIconState());
   }
+
   PetModel? petModel;
 
   void getPets() async {
     AppConstants.refreshToken(refreshToken).then((value) {
       emit(PetsLoadingsState());
-      DioHelper.getData(url:EndPoints.pets,token: token).then((value){
-        petModel=PetModel.fromJson(value.data);
+      DioHelper.getData(url: EndPoints.pets, token: token).then((value) {
+        petModel = PetModel.fromJson(value.data);
         if (kDebugMode) {
           print(value.data);
         }
         emit(PetsSuccessState());
-      }).catchError((error){
+      }).catchError((error) {
         if (kDebugMode) {
           print('get pets error is ${error.toString()}');
         }
         emit(PetsErrorState());
       });
-    }).catchError((error) {
-    });
+    }).catchError((error) {});
   }
 
   //--------------get user info--------------//
   UserModel? userModel;
+
   Future<void> getUserData() async {
     emit(LoadingUserInfoState());
     DioHelper.getData(
@@ -149,10 +152,8 @@ class AppCubit extends Cubit<AppStates> {
         petImageUrl = value;
         print(petImageUrl);
         petImage = null;
-      }).onError((error, stackTrace) {
-      });
-    }).onError((error, stackTrace) {
-    });
+      }).onError((error, stackTrace) {});
+    }).onError((error, stackTrace) {});
   }
 
   Future<void> sendRequest() async {}
@@ -179,25 +180,119 @@ class AppCubit extends Cubit<AppStates> {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
+
   Position? position;
 
-  String address ='';
+  String address = '';
 
   TextEditingController locationController = TextEditingController();
 
-  Future<void> getAddressFromLatLong()async {
+  Future<void> getAddressFromLatLong() async {
     position = await determinePosition();
-    List<Placemark> placemarks = await placemarkFromCoordinates(position!.latitude, position!.longitude);
-    // print(placemarks);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position!.latitude, position!.longitude);
     Placemark place = placemarks[1];
-    address = '${place.thoroughfare},${place.locality}, ${place.administrativeArea},${place.country}';
+    address =
+        '${place.thoroughfare},${place.locality}, ${place.administrativeArea},${place.country}';
     print(place);
     locationController.text = address;
-    if (kDebugMode)
-    {
+    if (kDebugMode) {
       print(address);
     }
+  }
+
+  //------------------------ filters ---------------------
+
+  final List<String> categoryItems = [
+    'cat',
+    'dog',
+  ];
+  final List<String> ageItems = [
+    "0-2 months",
+    "3-4 months",
+    "5-6 months",
+    "7-8 months",
+    "9-10 months",
+    "10-12 months",
+    "1-2 years",
+    "3-5 years",
+    "6-8 years",
+    "9+ years",
+  ];
+
+  final List<String> sizeItems = [
+    'small',
+    'medium',
+    'large',
+  ];
+
+  final List<String> breedItems = [
+    "aegean",
+    "american Bobtail",
+    "australian Mist",
+    "burmilla",
+    "chartreux",
+    "dogo",
+    "german Shepherd",
+    "great Dane",
+    "kangal",
+    "pitbull",
+  ];
+
+  final List<String> genderItems = [
+    'male',
+    'female',
+  ];
+
+  final List<String> houseTrainedItems = [
+    'yes',
+    'no',
+  ];
+
+  final List<String> hairLengthItems = [
+    "short",
+    "medium",
+    "tall",
+  ];
+  final List<String> vaccinatedItems = [
+    'yes',
+    'no',
+  ];
+  final List<String> colorItems = [
+    "yellow",
+    "orange",
+    "antique bronze",
+    "artichoke green",
+    "black olive",
+  ];
+FilterModel? filteredList;
+  TextEditingController colorController = TextEditingController();
+  TextEditingController breedController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController sizeController = TextEditingController();
+  TextEditingController hairLengthController = TextEditingController();
+  TextEditingController houseTrainedController = TextEditingController();
+  TextEditingController vaccinatedController = TextEditingController();
+  void getPetsWithFilter() {
+    DioHelper.getData(
+      url: EndPoints.filters,
+      token: token,
+      query: {
+        'ages' : ageController.text,
+        'size' : sizeController.text,
+        'gender' : genderController.text,
+        'breed' : breedController.text,
+        'hair_length' : hairLengthController.text,
+        'color' :colorController.text ,
+      }
+    ).then((value) {
+      filteredList = FilterModel.fromJson(value.data);
+      emit(EmitFilterState());
+      print(value.data);
+    });
   }
 }

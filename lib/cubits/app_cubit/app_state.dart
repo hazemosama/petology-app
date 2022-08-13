@@ -36,3 +36,4 @@ class ErrorUpdateUserState extends AppStates {
   ErrorUpdateUserState(this.error);
 }
 
+class EmitFilterState extends AppStates {}

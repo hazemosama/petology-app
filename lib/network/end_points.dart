@@ -9,6 +9,7 @@ class EndPoints {
   static const String pets = '/event/animal/';
   static const String refresh = 'accounts/api/token/refresh/';
   static const String userInfo = '/event/profile/';
+  static const String filters = '/event/animal/filters/';
 
 }
 String token='';
