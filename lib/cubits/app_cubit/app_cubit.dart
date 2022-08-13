@@ -192,10 +192,11 @@ class AppCubit extends Cubit<AppStates> {
     print(position);
     List<Placemark> placemarks = await placemarkFromCoordinates(position!.latitude, position!.longitude);
     // print(placemarks);
-    Placemark place = placemarks[0];
-
-    address = place.street!;
+    Placemark place = placemarks[1];
+    address = '${place.thoroughfare},${place.locality}, ${place.administrativeArea},${place.country}';
     locationController.text = address;
-    // print(address);
+    print(place);
+    print(place.locality);
+    print(place.country);
   }
 }

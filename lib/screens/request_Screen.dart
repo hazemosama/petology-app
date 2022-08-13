@@ -33,8 +33,9 @@ class RequestScreen extends StatelessWidget {
   ];
 
   final List<String> sizeItems = [
-    'cat',
-    'dog',
+    'Small',
+    'Medium',
+    'Large',
   ];
 
   final List<String> breedItems = [
