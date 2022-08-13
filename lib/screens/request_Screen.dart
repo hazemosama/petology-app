@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/themes/colors.dart';
@@ -16,15 +14,76 @@ class RequestScreen extends StatelessWidget {
   var nameController = TextEditingController();
   var locationController = TextEditingController();
   var phoneController = TextEditingController();
-  final List<String> genderItems = ['cat', 'dog'];
+  var descriptionController = TextEditingController();
+
+  final List<String> categoryItems = [
+    'cat',
+    'dog',
+  ];
+  final List<String> ageItems = [
+    "0-2 months",
+    "3-4 months",
+    "5-6 months",
+    "7-8 months",
+    "9-10 months",
+    "10-12 months",
+    "1-2 years",
+    "3-5 years",
+    "6-8 years",
+    "9+ years",
+  ];
+
+  final List<String> sizeItems = [
+    'cat',
+    'dog',
+  ];
+
+  final List<String> breedItems = [
+    "Aegean",
+    "American Bobtail",
+    "Australian Mist",
+    "Burmilla",
+    "Chartreux",
+    "Dogo",
+    "German Shepherd",
+    "Great Dane",
+    "Kangal",
+    "Pitbull",
+  ];
+
+  final List<String> genderItems = [
+    'Male',
+    'Female',
+  ];
+
+  final List<String> houseTrainedItems = [
+    'Yes',
+    'No',
+  ];
+
+  final List<String> hairLengthItems = [
+    "short",
+    "medium",
+    "tall",
+  ];
+  final List<String> vaccinatedItems = [
+    'Yes',
+    'No',
+  ];
+  final List<String> colorItems = [
+    "yellow",
+    "orange",
+    "Antique bronze",
+    "Artichoke green",
+    "Black olive",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
-        builder: (context, state)
-        {
+        builder: (context, state) {
           return Stack(
             children: [
               Image.asset(
@@ -87,21 +146,21 @@ class RequestScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 15),
                             DefaultDropDownMenu(
-                              items: genderItems,
                               hint: 'Category',
+                              items: categoryItems,
                             ),
                             const SizedBox(height: 15),
                             Row(
                               children: [
                                 DefaultDropDownMenu(
                                   hint: 'Age',
-                                  items: genderItems,
+                                  items: ageItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
                                 DefaultDropDownMenu(
                                   hint: 'Size',
-                                  items: genderItems,
+                                  items: sizeItems,
                                   width: 140,
                                 ),
                               ],
@@ -111,28 +170,12 @@ class RequestScreen extends StatelessWidget {
                               children: [
                                 DefaultDropDownMenu(
                                   hint: 'Breed',
-                                  items: genderItems,
+                                  items: breedItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
                                 DefaultDropDownMenu(
                                   hint: 'Gender',
-                                  items: genderItems,
-                                  width: 140,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 15),
-                            Row(
-                              children: [
-                                DefaultDropDownMenu(
-                                  hint: 'Gender',
-                                  items: genderItems,
-                                  width: 140,
-                                ),
-                                const Spacer(),
-                                DefaultDropDownMenu(
-                                  hint: 'Hair Length',
                                   items: genderItems,
                                   width: 140,
                                 ),
@@ -143,13 +186,13 @@ class RequestScreen extends StatelessWidget {
                               children: [
                                 DefaultDropDownMenu(
                                   hint: 'House Trained',
-                                  items: genderItems,
+                                  items: houseTrainedItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
                                 DefaultDropDownMenu(
-                                  hint: 'Color',
-                                  items: genderItems,
+                                  hint: 'Hair Length',
+                                  items: hairLengthItems,
                                   width: 140,
                                 ),
                               ],
@@ -159,13 +202,13 @@ class RequestScreen extends StatelessWidget {
                               children: [
                                 DefaultDropDownMenu(
                                   hint: 'Vaccinated',
-                                  items: genderItems,
+                                  items: vaccinatedItems,
                                   width: 140,
                                 ),
                                 const Spacer(),
                                 DefaultDropDownMenu(
-                                  hint: 'Gender',
-                                  items: genderItems,
+                                  hint: 'Color',
+                                  items: colorItems,
                                   width: 140,
                                 ),
                               ],
@@ -186,7 +229,9 @@ class RequestScreen extends StatelessWidget {
                                   keyboardType: TextInputType.name,
                                   suffix: Icons.location_on,
                                   color: AppColors.darkBrown,
-                                  suffixPressed: () {},
+                                  suffixPressed: () {
+                                    AppCubit.get(context).determinePosition();
+                                  },
                                   validate: (String? value) {
                                     if (value!.isEmpty) {
                                       return 'Location must not be empty';
@@ -199,7 +244,22 @@ class RequestScreen extends StatelessWidget {
                                   width: 400,
                                   hint: 'Phone number',
                                   controller: phoneController,
-                                  keyboardType: TextInputType.emailAddress,
+                                  keyboardType: TextInputType.phone,
+                                  validate: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return 'Phone must not be empty';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 15),
+                                DefaultFormField(
+                                  height: 120,
+                                  width: 400,
+                                  hint: 'Description',
+                                  maxLines: 5,
+                                  controller: descriptionController,
+                                  keyboardType: TextInputType.text,
                                   validate: (String? value) {
                                     if (value!.isEmpty) {
                                       return 'Phone must not be empty';

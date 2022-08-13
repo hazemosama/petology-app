@@ -18,7 +18,7 @@ class DefaultDropDownMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? 300,
-      child: Material(//
+      child: Material(
         elevation: 5,
         shadowColor: AppColors.lightBrown,
         shape: RoundedRectangleBorder(
@@ -27,6 +27,7 @@ class DefaultDropDownMenu extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: DropdownButtonFormField(
+            isExpanded: true,
             decoration:InputDecoration(
                 border: InputBorder.none,
               hintText: hint,
@@ -43,7 +44,7 @@ class DefaultDropDownMenu extends StatelessWidget {
               child: Text(
                 item,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                 ),
               ),
             ))

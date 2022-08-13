@@ -3,6 +3,7 @@ import 'package:petology/themes/colors.dart';
 
 class DefaultFormField extends StatelessWidget {
   final double? width;
+  final double? height;
   final String? hint;
   final bool? isPassword;
   final TextEditingController? controller;
@@ -18,6 +19,7 @@ class DefaultFormField extends StatelessWidget {
   final bool isClickable = true;
   final Color? color;
   final String? text;
+  final int? maxLines;
 
   const DefaultFormField({
     super.key,
@@ -37,12 +39,15 @@ class DefaultFormField extends StatelessWidget {
     this.isPassword,
     this.color,
     this.text,
+    this.height,
+    this.maxLines,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? 300.0,
+      height: height,
       child: Material(
         elevation: 5,
         shadowColor: AppColors.lightBrown,
@@ -58,6 +63,7 @@ class DefaultFormField extends StatelessWidget {
           onChanged: onChange,
           onTap: onTap,
           validator: validate,
+          maxLines: maxLines ?? 1,
           decoration: InputDecoration(
             prefixText: text,
             border: OutlineInputBorder(

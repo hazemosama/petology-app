@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/models/pets_model.dart';
@@ -123,10 +124,11 @@ class AppCubit extends Cubit<AppStates> {
   var picker = ImagePicker();
 
   Future<void> getPetImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
       petImage = File(pickedFile.path);
+      uploadPetImage();
     } else {
       if (kDebugMode) {
         print('no image selected');
@@ -150,5 +152,32 @@ class AppCubit extends Cubit<AppStates> {
       });
     }).onError((error, stackTrace) {
     });
+  }
+
+  Future<void> sendRequest() async {}
+
+  // ----------------------- location ------------------------ \\
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await Geolocator.getCurrentPosition();
   }
 }
