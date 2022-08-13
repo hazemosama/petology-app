@@ -185,13 +185,17 @@ class AppCubit extends Cubit<AppStates> {
 
   String address ='';
 
+  TextEditingController locationController = TextEditingController();
+
   Future<void> getAddressFromLatLong()async {
     position = await determinePosition();
     print(position);
     List<Placemark> placemarks = await placemarkFromCoordinates(position!.latitude, position!.longitude);
-    print(placemarks);
+    // print(placemarks);
     Placemark place = placemarks[0];
-    address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    print(address);
+
+    address = place.street!;
+    locationController.text = address;
+    // print(address);
   }
 }

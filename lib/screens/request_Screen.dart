@@ -12,7 +12,6 @@ class RequestScreen extends StatelessWidget {
 
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
-  var locationController = TextEditingController();
   var phoneController = TextEditingController();
   var descriptionController = TextEditingController();
 
@@ -224,7 +223,7 @@ class RequestScreen extends StatelessWidget {
                                 const SizedBox(height: 15),
                                 DefaultFormField(
                                   width: 400,
-                                  controller: locationController,
+                                  controller: AppCubit.get(context).locationController,
                                   hint: 'Location',
                                   keyboardType: TextInputType.name,
                                   suffix: Icons.location_on,
