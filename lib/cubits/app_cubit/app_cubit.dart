@@ -191,7 +191,7 @@ class AppCubit extends Cubit<AppStates> {
     position = await determinePosition();
     List<Placemark> placemarks = await placemarkFromCoordinates(position!.latitude, position!.longitude);
     // print(placemarks);
-    Placemark place = placemarks[0];
+    Placemark place = placemarks[1];
     address = '${place.thoroughfare},${place.locality}, ${place.administrativeArea},${place.country}';
     print(place);
     locationController.text = address;
