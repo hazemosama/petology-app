@@ -20,6 +20,8 @@ dependencies:
   google_sign_in: ^5.4.1
   fluttertoast: ^8.0.9
   conditional_builder_null_safety: ^0.0.6
+  image_picker: ^0.8.5+3
+  firebase_storage: ^10.3.5
 
 dev_dependencies:
   flutter_lints: ^2.0.1

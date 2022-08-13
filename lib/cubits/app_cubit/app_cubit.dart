@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/models/pets_model.dart';
 import 'package:petology/models/user_model.dart';
@@ -111,6 +114,41 @@ class AppCubit extends Cubit<AppStates> {
         print('update user error is: ${error.toString()}');
       }
       emit(ErrorUpdateUserState(error.toString()));
+    });
+  }
+
+  //-----------------request------------------//
+
+  File? petImage;
+  var picker = ImagePicker();
+
+  Future<void> getPetImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      petImage = File(pickedFile.path);
+    } else {
+      if (kDebugMode) {
+        print('no image selected');
+      }
+    }
+  }
+
+  String petImageUrl = '';
+
+  void uploadPetImage() {
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('pets/${Uri.file(petImage!.path).pathSegments.last}')
+        .putFile(petImage!)
+        .then((picture) {
+      picture.ref.getDownloadURL().then((value) {
+        petImageUrl = value;
+        print(petImageUrl);
+        petImage = null;
+      }).onError((error, stackTrace) {
+      });
+    }).onError((error, stackTrace) {
     });
   }
 }

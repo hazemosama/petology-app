@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petology/cubits/auth_cubit/auth_cubit.dart';
 import 'package:petology/network/local/cache_helper.dart';
-import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/login_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
@@ -39,7 +38,6 @@ class SignupScreen extends StatelessWidget {
           } else if (state is SocialLoginSuccessState) {
             CacheHelper.saveData(key: 'token', value: state.token)
                 .then((value) {
-              Navigator.pushNamed(context, HelpScreen.routeName);
             });
           } else if (state is SignupSuccessState) {
             AppConstants.showToast(

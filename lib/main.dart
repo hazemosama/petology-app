@@ -8,7 +8,6 @@ import 'package:petology/network/local/cache_helper.dart';
 import 'package:petology/network/remote/block_observer.dart';
 import 'package:petology/network/remote/dio_helper.dart';
 import 'package:petology/screens/adoption_screen.dart';
-import 'package:petology/screens/help_screen.dart';
 import 'package:petology/screens/home_layout.dart';
 import 'package:petology/screens/kind_screen.dart';
 import 'package:petology/screens/login_screen.dart';
@@ -16,19 +15,14 @@ import 'package:petology/screens/pet_details_screen.dart';
 import 'package:petology/screens/signup_screen.dart';
 import 'package:petology/themes/themes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
 import 'screens/profile_screen.dart';
 
-void main() async
-{
-
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-
     ),
   );
   await CacheHelper.init();
@@ -59,7 +53,9 @@ class Petology extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AppCubit()..getPets()..getUserData(),
+          create: (context) => AppCubit()
+            ..getPets()
+            ..getUserData(),
         )
       ],
       child: MaterialApp(
@@ -79,7 +75,6 @@ class Petology extends StatelessWidget {
         ),
 
         routes: {
-          HelpScreen.routeName: (context) => HelpScreen(),
           KindScreen.routeName: (context) => const KindScreen(),
           LoginScreen.routeName: (context) => LoginScreen(),
           SignupScreen.routeName: (context) => SignupScreen(),
@@ -88,7 +83,8 @@ class Petology extends StatelessWidget {
           ProfileScreen.routeName: (context) => ProfileScreen(),
           PetDetailsScreen.routeName: (context) => const PetDetailsScreen(),
         },
-        initialRoute: token!=''? HomeLayout.routeName:LoginScreen.routeName,
+        initialRoute:
+            token != '' ? HomeLayout.routeName : LoginScreen.routeName,
         //LoginScreen.routeName
       ),
     );
