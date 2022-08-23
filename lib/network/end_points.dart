@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:petology/network/local/cache_helper.dart';
 
@@ -18,7 +19,9 @@ String refreshToken='';
 void signOut(context) => CacheHelper.removeData(key: 'token').then((value) {
   if (value) {
     CacheHelper.removeData(key: 'refresh_token');
-    print(value);
+    if (kDebugMode) {
+      print(value);
+    }
     Navigator.pushReplacementNamed(context, '/login');
   }
 });
