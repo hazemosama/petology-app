@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petology/cubits/app_cubit/app_cubit.dart';
 import 'package:petology/screens/adoption_screen.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
@@ -17,6 +18,7 @@ class KindScreenState extends State<KindScreen> {
   double height = 180;
   int weight = 40;
   int age = 20;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +59,22 @@ class KindScreenState extends State<KindScreen> {
                       onTap: () {
                         setState(() {
                           selected = 'dog';
+                          isLoading = true;
                         });
-                        Navigator.pushNamed(context, AdoptionScreen.routeName);
+
+                        AppCubit.get(context)
+                            .getCategory(category: 'dog')
+                            .then((value) {
+                          setState(() {
+                            selected = '';
+                            isLoading = false;
+                          });
+                          Navigator.pushNamed(
+                            context,
+                            AdoptionScreen.routeName,
+                            arguments: 'dog',
+                          );
+                        });
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
@@ -107,8 +123,21 @@ class KindScreenState extends State<KindScreen> {
                       onTap: () {
                         setState(() {
                           selected = 'cat';
+                          isLoading = true;
                         });
-                        Navigator.pushNamed(context, AdoptionScreen.routeName);
+                        AppCubit.get(context)
+                            .getCategory(category: 'cat')
+                            .then((value) {
+                          setState(() {
+                            selected = '';
+                            isLoading = false;
+                          });
+                          Navigator.pushNamed(
+                            context,
+                            AdoptionScreen.routeName,
+                            arguments: 'cat',
+                          );
+                        });
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
@@ -148,6 +177,18 @@ class KindScreenState extends State<KindScreen> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Visibility(
+              visible: isLoading,
+              child: const Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: SizedBox(
+                  width: 250.0,
+                  child: LinearProgressIndicator(
+                    color: AppColors.medBrown,
+                  ),
+                ),
               ),
             ),
           ],

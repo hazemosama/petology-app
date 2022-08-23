@@ -13,6 +13,9 @@ class AdoptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String category = ModalRoute.of(context)!.settings.arguments as String;
+    print('category is ${category}');
+
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         // TODO: implement listener
@@ -39,13 +42,13 @@ class AdoptionScreen extends StatelessWidget {
                           DropDownContainer(
                             items: cubit.breedItems,
                             width: 150,
-                            controller: cubit.colorController,
+                            controller: cubit.breedController,
                             hint: 'Breed',
                           ),
                           DropDownContainer(
                             items: cubit.ageItems,
                             width: 150,
-                            controller: cubit.colorController,
+                            controller: cubit.ageController,
                             hint: 'Age',
                           ),
                         ],
@@ -85,7 +88,7 @@ class AdoptionScreen extends StatelessWidget {
                           DropDownContainer(
                             items: cubit.hairLengthItems,
                             width: 150,
-                            controller: cubit.colorController,
+                            controller: cubit.hairLengthController,
                             hint: 'Hair Length',
                           ),
                         ],
@@ -112,7 +115,7 @@ class AdoptionScreen extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {
-                          cubit.getPetsWithFilter();
+                          cubit.getPetsWithFilter(category);
                         },
                         icon: Icon(Icons.share),
                       ),

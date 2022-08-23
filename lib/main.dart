@@ -58,7 +58,6 @@ class Petology extends StatelessWidget {
           create: (context) => AppCubit()
             ..getPets()
             ..getUserData()
-          ..getPetsWithFilter(),
         )
       ],
       child: MaterialApp(

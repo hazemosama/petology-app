@@ -18,6 +18,7 @@ import 'package:petology/screens/services_screen.dart';
 import 'package:petology/utils/app_constants.dart';
 
 import '../../models/filter_model.dart';
+import '../../models/request_model.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
@@ -132,6 +133,7 @@ class AppCubit extends Cubit<AppStates> {
 
     if (pickedFile != null) {
       petImage = File(pickedFile.path);
+      emit(UploadPetImageState());
       uploadPetImage();
     } else {
       if (kDebugMode) {
@@ -156,7 +158,52 @@ class AppCubit extends Cubit<AppStates> {
     }).onError((error, stackTrace) {});
   }
 
-  Future<void> sendRequest() async {}
+  RequestModel? requestModel;
+
+  Future<void> sendRequest({
+    String? name,
+    String? image,
+    String? ages,
+    String? category,
+    String? size,
+    String? breed,
+    String? gender,
+    String? hair_length,
+    String? color,
+    String? house_tranied,
+    String? description,
+    String? location,
+    String? phone,
+    String? vacciated,
+  }) async {
+    await DioHelper.postData(
+        url: '/event/animal/',
+        token: token,
+        isAuth: true,
+        data: {
+          'name': name,
+          'image': [image],
+          'ages': ages,
+          'category': category,
+          'size': size,
+          'breed': breed,
+          'gender': gender,
+          'hair_length': hair_length,
+          'color': color,
+          'house_tranied': house_tranied,
+          'description': description,
+          'location': location,
+          'phone': phone,
+          'vacciated': vacciated,
+        }).then((value) {
+      print(value.data);
+      requestModel = RequestModel.fromJson(value.data);
+      emit(RequestSuccessState());
+    }).catchError((error) {
+      emit(RequestErrorState());
+      print(error.toString());
+    });
+  }
 
   // ----------------------- location ------------------------ \\
 
@@ -207,8 +254,8 @@ class AppCubit extends Cubit<AppStates> {
   //------------------------ filters ---------------------
 
   final List<String> categoryItems = [
-    'cat',
-    'dog',
+    '1',
+    '2',
   ];
   final List<String> ageItems = [
     "0-2 months",
@@ -243,13 +290,13 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   final List<String> genderItems = [
-    'male',
-    'female',
+    'Yes',
+    'No',
   ];
 
   final List<String> houseTrainedItems = [
-    'yes',
-    'no',
+    'Yes',
+    'No',
   ];
 
   final List<String> hairLengthItems = [
@@ -258,8 +305,8 @@ class AppCubit extends Cubit<AppStates> {
     "tall",
   ];
   final List<String> vaccinatedItems = [
-    'yes',
-    'no',
+    'Yes',
+    'No',
   ];
   final List<String> colorItems = [
     "yellow",
@@ -268,7 +315,7 @@ class AppCubit extends Cubit<AppStates> {
     "artichoke green",
     "black olive",
   ];
-FilterModel? filteredList;
+  FilterModel? filteredList;
   TextEditingController colorController = TextEditingController();
   TextEditingController breedController = TextEditingController();
   TextEditingController genderController = TextEditingController();
@@ -277,19 +324,30 @@ FilterModel? filteredList;
   TextEditingController hairLengthController = TextEditingController();
   TextEditingController houseTrainedController = TextEditingController();
   TextEditingController vaccinatedController = TextEditingController();
-  void getPetsWithFilter() {
-    DioHelper.getData(
-      url: EndPoints.filters,
-      token: token,
-      query: {
-        'ages' : ageController.text,
-        'size' : sizeController.text,
-        'gender' : genderController.text,
-        'breed' : breedController.text,
-        'hair_length' : hairLengthController.text,
-        'color' :colorController.text ,
-      }
-    ).then((value) {
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
+  void getPetsWithFilter(String? category) {
+    DioHelper.getData(url: EndPoints.filters, token: token, query: {
+      'category__cat_name': category!,
+      'ages': ageController.text,
+      'size': sizeController.text,
+      'gender': genderController.text,
+      'breed': breedController.text,
+      'hair_length': hairLengthController.text,
+      'color': colorController.text,
+
+    }).then((value) {
+      filteredList = FilterModel.fromJson(value.data);
+      emit(EmitFilterState());
+      print(value.data);
+    });
+  }
+
+  Future<void> getCategory({
+    required String category,
+  }) async {
+    await DioHelper.getData(url: '${EndPoints.filters}?category__cat_name=$category', token: token,).then((value) {
       filteredList = FilterModel.fromJson(value.data);
       emit(EmitFilterState());
       print(value.data);

@@ -43,6 +43,16 @@ class DropDownContainer extends StatelessWidget {
               print(value);
               print(controller!.text);
               print('cubit controller is: ${AppCubit.get(context).sizeController.text}');
+              print('cubit controller is: ${AppCubit.get(context).breedController.text}');
+              print('cubit controller is: ${AppCubit.get(context).locationController.text}');
+              print('cubit controller is: ${AppCubit.get(context).genderController.text}');
+              print('cubit controller is: ${AppCubit.get(context).houseTrainedController.text}');
+              print('cubit controller is: ${AppCubit.get(context).hairLengthController.text}');
+              print('cubit controller is: ${AppCubit.get(context).vaccinatedController.text}');
+              print('cubit controller is: ${AppCubit.get(context).nameController.text}');
+              print('cubit controller is: ${AppCubit.get(context).categoryController.text}');
+              print('cubit controller is: ${AppCubit.get(context).categoryController.text}');
+              print('cubit controller is: ${AppCubit.get(context).ageController.text}');
             },
             items: items
                 .map((item) => DropdownMenuItem<String>(

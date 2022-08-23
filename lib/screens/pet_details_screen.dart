@@ -151,7 +151,7 @@ class PetDetailsScreen extends StatelessWidget {
                         height: 15.0,
                       ),
                       Text(
-                        'House Trained: ${pet.houseTranied ? 'Yes' : 'No'}',
+                        'House Trained: ${pet.houseTranied }',
                         style: const TextStyle(
                           color: AppColors.darkBrown,
                           fontSize: 18.0,

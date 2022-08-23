@@ -66,14 +66,14 @@ class Animals {
   late final Category category;
   late final String size;
   late final String breed;
-  late final bool gender;
+  late final String gender;
   late final String hairLength;
   late final String color;
-  late final bool houseTranied;
+  late final String houseTranied;
   late final String description;
   late final String location;
   late final String phone;
-  late final bool vacciated;
+  late final String vacciated;
   late final String date;
   late final User user;
   late final List<Image> image;

@@ -13,23 +13,29 @@ class PetsLoadingsState extends AppStates {}
 class PetsSuccessState extends AppStates {}
 
 class PetsErrorState extends AppStates {}
+
 class LoadingUserInfoState extends AppStates {}
+
 class SuccessUserInfoState extends AppStates {
   final UserModel userModel;
 
   SuccessUserInfoState(this.userModel);
 }
+
 class ErrorUserInfoState extends AppStates {
   final String error;
 
   ErrorUserInfoState(this.error);
 }
+
 class LoadingUpdateUserState extends AppStates {}
+
 class SuccessUpdateUserState extends AppStates {
   final UserModel userModel;
 
   SuccessUpdateUserState(this.userModel);
 }
+
 class ErrorUpdateUserState extends AppStates {
   final String error;
 
@@ -37,3 +43,9 @@ class ErrorUpdateUserState extends AppStates {
 }
 
 class EmitFilterState extends AppStates {}
+
+class RequestSuccessState extends AppStates {}
+
+class UploadPetImageState extends AppStates {}
+
+class RequestErrorState extends AppStates {}

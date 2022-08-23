@@ -8,7 +8,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-          baseUrl: 'https://new-idea.herokuapp.com/',
+          baseUrl: 'https://petology1.herokuapp.com/',
           receiveDataWhenStatusError: true,
           validateStatus: (status) {
             if (status == 401 && token != '') {

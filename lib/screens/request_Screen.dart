@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petology/cubits/app_cubit/app_cubit.dart';
@@ -11,9 +12,19 @@ class RequestScreen extends StatelessWidget {
   RequestScreen({Key? key}) : super(key: key);
 
   var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var phoneController = TextEditingController();
-  var descriptionController = TextEditingController();
+  TextEditingController colorRequestController = TextEditingController();
+  TextEditingController breedRequestController = TextEditingController();
+  TextEditingController genderRequestController = TextEditingController();
+  TextEditingController ageRequestController = TextEditingController();
+  TextEditingController sizeRequestController = TextEditingController();
+  TextEditingController hairLengthRequestController = TextEditingController();
+  TextEditingController houseTrainedRequestController = TextEditingController();
+  TextEditingController vaccinatedRequestController = TextEditingController();
+  TextEditingController categoryRequestController = TextEditingController();
+  TextEditingController nameRequestController = TextEditingController();
+  TextEditingController phoneRequestController = TextEditingController();
+  TextEditingController descriptionRequestController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +45,7 @@ class RequestScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Container(
-                    height: 1000,
+                    height: AppCubit.get(context).petImage != null ? 1050 : 1000,
                     width: 400,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -59,9 +70,17 @@ class RequestScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             InkWell(
-                              child: const Icon(
-                                Icons.camera_alt_rounded,
-                                size: 100,
+                              child: ConditionalBuilder(
+                                condition: cubit.petImage != null,
+                                builder: (context) => Image.file(
+                                  cubit.petImage!,
+                                  height: 150,
+                                  width: 150,
+                                ),
+                                fallback: (context) => const Icon(
+                                  Icons.camera_alt,
+                                  size: 100,
+                                ),
                               ),
                               onTap: () {
                                 AppCubit.get(context).getPetImage();
@@ -71,7 +90,7 @@ class RequestScreen extends StatelessWidget {
                               height: 20,
                             ),
                             DefaultFormField(
-                              controller: nameController,
+                              controller: nameRequestController,
                               hint: 'name',
                               keyboardType: TextInputType.name,
                               validate: (String? value) {
@@ -85,6 +104,7 @@ class RequestScreen extends StatelessWidget {
                             DropDownContainer(
                               hint: 'Category',
                               items: cubit.categoryItems,
+                              controller: categoryRequestController,
                             ),
                             const SizedBox(height: 15),
                             Row(
@@ -93,12 +113,14 @@ class RequestScreen extends StatelessWidget {
                                   hint: 'Age',
                                   items: cubit.ageItems,
                                   width: 140,
+                                  controller: ageRequestController,
                                 ),
                                 const Spacer(),
                                 DropDownContainer(
                                   hint: 'Size',
                                   items: cubit.sizeItems,
                                   width: 140,
+                                  controller: sizeRequestController,
                                 ),
                               ],
                             ),
@@ -109,12 +131,14 @@ class RequestScreen extends StatelessWidget {
                                   hint: 'Breed',
                                   items: cubit.breedItems,
                                   width: 140,
+                                  controller: breedRequestController,
                                 ),
                                 const Spacer(),
                                 DropDownContainer(
                                   hint: 'Gender',
                                   items: cubit.genderItems,
                                   width: 140,
+                                  controller: genderRequestController,
                                 ),
                               ],
                             ),
@@ -125,12 +149,14 @@ class RequestScreen extends StatelessWidget {
                                   hint: 'House Trained',
                                   items: cubit.houseTrainedItems,
                                   width: 140,
+                                  controller: houseTrainedRequestController,
                                 ),
                                 const Spacer(),
                                 DropDownContainer(
                                   hint: 'Hair Length',
                                   items: cubit.hairLengthItems,
                                   width: 140,
+                                  controller: hairLengthRequestController,
                                 ),
                               ],
                             ),
@@ -141,13 +167,14 @@ class RequestScreen extends StatelessWidget {
                                   hint: 'Vaccinated',
                                   items: cubit.vaccinatedItems,
                                   width: 140,
+                                  controller: vaccinatedRequestController,
                                 ),
                                 const Spacer(),
                                 DropDownContainer(
                                   hint: 'Color',
                                   items: cubit.colorItems,
                                   width: 140,
-
+                                  controller: colorRequestController,
                                 ),
                               ],
                             ),
@@ -162,13 +189,15 @@ class RequestScreen extends StatelessWidget {
                                 const SizedBox(height: 15),
                                 DefaultFormField(
                                   width: 400,
-                                  controller: AppCubit.get(context).locationController,
+                                  controller:
+                                      AppCubit.get(context).locationController,
                                   hint: 'Location',
                                   keyboardType: TextInputType.name,
                                   suffix: Icons.location_on,
                                   color: AppColors.darkBrown,
                                   suffixPressed: () {
-                                    AppCubit.get(context).getAddressFromLatLong();
+                                    AppCubit.get(context)
+                                        .getAddressFromLatLong();
                                   },
                                   validate: (String? value) {
                                     if (value!.isEmpty) {
@@ -181,7 +210,7 @@ class RequestScreen extends StatelessWidget {
                                 DefaultFormField(
                                   width: 400,
                                   hint: 'Phone number',
-                                  controller: phoneController,
+                                  controller: phoneRequestController,
                                   keyboardType: TextInputType.phone,
                                   validate: (String? value) {
                                     if (value!.isEmpty) {
@@ -196,7 +225,7 @@ class RequestScreen extends StatelessWidget {
                                   width: 400,
                                   hint: 'Description',
                                   maxLines: 5,
-                                  controller: descriptionController,
+                                  controller: descriptionRequestController,
                                   keyboardType: TextInputType.text,
                                   validate: (String? value) {
                                     if (value!.isEmpty) {
@@ -207,7 +236,31 @@ class RequestScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 20),
                                 MaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    AppCubit.get(context).sendRequest(
+                                      image: AppCubit.get(context).petImageUrl,
+                                      color: colorRequestController.text,
+                                      ages: ageRequestController.text,
+                                      breed: breedRequestController.text,
+                                      category: categoryRequestController.text,
+                                      description:
+                                          descriptionRequestController.text,
+                                      gender: genderRequestController.text,
+                                      hair_length:
+                                          hairLengthRequestController.text,
+                                      house_tranied:
+                                          houseTrainedRequestController.text,
+                                      location: AppCubit.get(context)
+                                          .locationController
+                                          .text,
+                                      name: nameRequestController.text,
+                                      phone: phoneRequestController.text,
+                                      size: sizeRequestController.text,
+                                      vacciated:
+                                          vaccinatedRequestController.text,
+                                    );
+                                    formKey.currentState!.reset();
+                                  },
                                   color: AppColors.darkBrown,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40)),
