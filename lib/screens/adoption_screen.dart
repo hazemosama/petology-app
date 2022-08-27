@@ -5,6 +5,8 @@ import 'package:petology/cubits/app_cubit/app_state.dart';
 import 'package:petology/widgets/deafult_drop_down_menu.dart';
 import 'package:petology/widgets/pet_container.dart';
 
+import '../themes/icon_borken.dart';
+
 class AdoptionScreen extends StatelessWidget {
   AdoptionScreen({Key? key}) : super(key: key);
   static const routeName = '/adoption';
@@ -40,7 +42,7 @@ class AdoptionScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           DropDownContainer(
-                            items: cubit.breedItems,
+                            items: cubit.filteredList!.choices.breed,
                             width: 150,
                             controller: cubit.breedController,
                             hint: 'Breed',
@@ -66,7 +68,7 @@ class AdoptionScreen extends StatelessWidget {
                             hint: 'Gender',
                           ),
                           DropDownContainer(
-                            items: cubit.sizeItems,
+                            items: cubit.filteredList!.choices.size,
                             width: 150,
                             controller: cubit.sizeController,
                             hint: 'Size',
@@ -80,13 +82,13 @@ class AdoptionScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           DropDownContainer(
-                            items: cubit.colorItems,
+                            items: cubit.filteredList!.choices.colors,
                             width: 150,
                             controller: cubit.colorController,
                             hint: 'Color',
                           ),
                           DropDownContainer(
-                            items: cubit.hairLengthItems,
+                            items: cubit.filteredList!.choices.hairLength,
                             width: 150,
                             controller: cubit.hairLengthController,
                             hint: 'Hair Length',
@@ -113,11 +115,17 @@ class AdoptionScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      IconButton(
+                      MaterialButton(
                         onPressed: () {
                           cubit.getPetsWithFilter(category);
                         },
-                        icon: Icon(Icons.share),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            Icon(IconBroken.Filter_2),
+                            Text('Filter'),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -125,13 +133,21 @@ class AdoptionScreen extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(10),
-                    itemCount: cubit.filteredList != null ? cubit.filteredList!.data.length : 1,
-                    itemBuilder: (context, index) => cubit.filteredList != null ? PetContainer(
-                      petName: cubit.filteredList!.data[index].name,
-                      userName: cubit.filteredList!.data[index].user.firstName,
-                      petImageUrl: cubit.filteredList!.data[index].image[0],
-                      forHome: false,
-                    ) : Center(child: CircularProgressIndicator()),
+                    itemCount: cubit.filteredList != null
+                        ? cubit.filteredList!.data.length
+                        : 1,
+                    itemBuilder: (context, index) => cubit.filteredList != null
+                        ? PetContainer(
+                            petName: cubit.filteredList!.data[index].name,
+                            userName:
+                                cubit.filteredList!.data[index].user.firstName,
+                            petImageUrl:
+                                cubit.filteredList!.data[index].image[0],
+                            forHome: false,
+                      petModel: cubit.filteredList!,
+                      index: index,
+                          )
+                        : Center(child: CircularProgressIndicator()),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

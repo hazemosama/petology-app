@@ -19,6 +19,7 @@ import 'package:petology/utils/app_constants.dart';
 
 import '../../models/filter_model.dart';
 import '../../models/request_model.dart';
+import '../../themes/icon_borken.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitial());
@@ -36,19 +37,19 @@ class AppCubit extends Cubit<AppStates> {
 
   List<BottomNavigationBarItem> navBarItems = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.home_filled),
+      icon: Icon(IconBroken.Home),
       label: 'Home',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.category),
+      icon: Icon(IconBroken.Category),
       label: 'Category',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.remove_from_queue_sharp),
+      icon: Icon(IconBroken.Camera),
       label: 'Request',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(Icons.more_horiz),
+      icon: Icon(IconBroken.More_Circle),
       label: 'Services',
     ),
   ];
@@ -290,8 +291,8 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   final List<String> genderItems = [
-    'Yes',
-    'No',
+    'Male',
+    'Female',
   ];
 
   final List<String> houseTrainedItems = [
@@ -336,6 +337,8 @@ class AppCubit extends Cubit<AppStates> {
       'breed': breedController.text,
       'hair_length': hairLengthController.text,
       'color': colorController.text,
+      'vacciated': vaccinatedController.text,
+      'house_tranied': houseTrainedController.text,
 
     }).then((value) {
       filteredList = FilterModel.fromJson(value.data);

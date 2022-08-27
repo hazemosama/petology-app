@@ -19,19 +19,19 @@ class HomeScreen extends StatelessWidget {
             children: [
               Container(
                 color: AppColors.darkBrown,
-                height: 270,
+                height: 250.0,
                 width: double.infinity,
               ),
               Row(
                 children: [
                   SizedBox(
-                    width: 200,
+                    width: 225,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
+                        children: const [
+                          Text(
                             'Not only people need a house',
                             style: TextStyle(
                                 color: Colors.white,
@@ -39,47 +39,18 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 overflow: TextOverflow.fade),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 8,
                           ),
-                          const Text(
+                          Text(
                             'There are friends of ours named pets, When you adopt, you support a worthy cause and help diminish the overpopulation of animals. ',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
                                 overflow: TextOverflow.fade),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 15,
-                          ),
-                          MaterialButton(
-                            onPressed: () {},
-                            height: 40,
-                            minWidth: 80,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(60),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 30.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'Help them',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Spacer(),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 14,
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -102,9 +73,6 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 15.0,
-                ),
                 Stack(
                   children: [
                     Padding(

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:petology/themes/colors.dart';
 import 'package:petology/utils/assets_manager.dart';
 
+import '../models/filter_model.dart';
+import '../models/pets_model.dart';
+import '../screens/pet_details_screen.dart';
+
 class PetContainer extends StatelessWidget {
   const PetContainer({
     Key? key,
@@ -9,12 +13,16 @@ class PetContainer extends StatelessWidget {
     required this.userName,
     required this.petImageUrl,
     required this.forHome,
+    required this.petModel,
+    required this.index,
   }) : super(key: key);
 
   final String petName;
   final String userName;
   final String petImageUrl;
+  final FilterModel petModel;
   final bool forHome;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +71,13 @@ class PetContainer extends StatelessWidget {
           MaterialButton(
             elevation: 2.0,
             color: AppColors.darkBrown,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                PetDetailsScreen.routeName,
+                arguments: petModel.data[index],
+              );
+            },
             minWidth: 140,
             height: 40,
             shape: RoundedRectangleBorder(
