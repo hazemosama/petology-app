@@ -10,7 +10,7 @@ class PetDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pet = ModalRoute.of(context)!.settings.arguments as Animals;
-
+//
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
